@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using System.Threading;
-
 namespace DailyReport.UControls
 {
     public partial class UC_ImportFileExecute : XtraUserControl
@@ -24,7 +23,11 @@ namespace DailyReport.UControls
             dataFile1 = new DataTable();
             dataFile2 = new DataTable();
             dataFile3 = new DataTable();
+        }
+        private void creatTable()
+        {
             dataFileTotal = new DataTable();
+
             dataFileTotal.Columns.Add("STT");
             dataFileTotal.Columns.Add("Store");
             dataFileTotal.Columns.Add("Inventory");
@@ -34,33 +37,44 @@ namespace DailyReport.UControls
             dataFileTotal.Columns.Add("Code");
             dataFileTotal.Columns.Add("Qty");
             dataFileTotal.Columns.Add("Amount");
-        }
 
+            lsLog.Items.Clear();
+        }
         private void btnChooseFile1_Click(object sender, EventArgs e)
         {
             Dictionary<string, object> data = OpenFileExcel.getInfoFile();
-            txtPathFile1.Text = data["fileName"].ToString();
-            string selectSheet = data["selectSheet"].ToString();
-            //checkExistsFile();
-            dataFile1 = OpenFileExcel.getDataFromExcel(data["fileName"].ToString(), selectSheet);
+            if (data != null)
+            {
+                txtPathFile1.Text = data["fileName"].ToString();
+                string selectSheet = data["selectSheet"].ToString();
+                //checkExistsFile();
+                dataFile1 = OpenFileExcel.getDataExcelFromFileToDataTable(data["fileName"].ToString());
+            }
         }
 
         private void btnChooseFile2_Click(object sender, EventArgs e)
         {
             Dictionary<string, object> data = OpenFileExcel.getInfoFile();
-            txtPathFile2.Text = data["fileName"].ToString();
-            string selectSheet = data["selectSheet"].ToString();
-            checkExistsFile();
-            dataFile2 = OpenFileExcel.getDataFromExcel(data["fileName"].ToString(), selectSheet);
+            if (data != null)
+            {
+                txtPathFile2.Text = data["fileName"].ToString();
+                string selectSheet = data["selectSheet"].ToString();
+                checkExistsFile();
+                dataFile2 = OpenFileExcel.getDataExcelFromFileToDataTable(data["fileName"].ToString());
+                List<Dictionary<string, object>> data2 = OpenFileExcel.getDataFromExcelToList(data["fileName"].ToString(), selectSheet);
+            }
         }
 
         private void btnChooseFile3_Click(object sender, EventArgs e)
         {
             Dictionary<string, object> data = OpenFileExcel.getInfoFile();
-            txtPathFile3.Text = data["fileName"].ToString();
-            string selectSheet = data["selectSheet"].ToString();
-            checkExistsFile();
-            dataFile3 = OpenFileExcel.getDataFromExcel(data["fileName"].ToString(), selectSheet);
+            if (data != null)
+            {
+                txtPathFile3.Text = data["fileName"].ToString();
+                string selectSheet = data["selectSheet"].ToString();
+                checkExistsFile();
+                dataFile3 = OpenFileExcel.getDataExcelFromFileToDataTable(data["fileName"].ToString());
+            }
         }
 
         private void checkExistsFile()
@@ -79,6 +93,7 @@ namespace DailyReport.UControls
         }
         private void btnExecuteData_Click(object sender, EventArgs e)
         {
+            creatTable();
             int maxProBar1 = dataFile1.Rows.Count - 2;
             int maxProBar2 = dataFile2.Rows.Count - 2;
             int maxProBar3 = dataFile3.Rows.Count - 2;
@@ -86,6 +101,8 @@ namespace DailyReport.UControls
             proBar1.Properties.Maximum = maxProBar1;
             proBar2.Properties.Maximum = maxProBar2;
             proBar3.Properties.Maximum = maxProBar3;
+
+            lblTitle.Text = dataFile1.Columns.Count.ToString();
             Thread t = new Thread(new ThreadStart(() =>
             {
                 executeDataTable1();
@@ -104,71 +121,83 @@ namespace DailyReport.UControls
         }
         private void executeDataTable1()
         {
+           
             DataRow dr = dataFileTotal.NewRow();
+            string strInventory = "";
+            string strBrand = "";
+            string strCategory = "";
+            string strModel = "";
+            string strCode = "";
+
             for (int i = 2; i < dataFile1.Rows.Count; i++)
             {
                 for (int j = 6; j < dataFile1.Columns.Count; j += 8)
-                {  
-                    var curInventory = dataFile1.Rows[i][1].ToString();
-                    var curBrand = dataFile1.Rows[i][2].ToString();
-                    var curCategory = dataFile1.Rows[i][3].ToString();
-                    var curModel = dataFile1.Rows[i][4].ToString();
-                    var curCode = dataFile1.Rows[i][5].ToString();
-                    var curColQty = dataFile1.Rows[i][j].ToString();
-                    var curColName = dataFile1.Columns[j].ColumnName.ToString();
-                    if (curColName == "")
-                        break;
-                    if (curInventory != "")
-                        dr["Inventory"] = curInventory;
+                {
+                    string curInventory = dataFile1.Rows[i][1].ToString().Trim();
+                    string curBrand = dataFile1.Rows[i][2].ToString().Trim();
+                    string curCategory = dataFile1.Rows[i][3].ToString().Trim();
+                    string curModel = dataFile1.Rows[i][4].ToString().Trim();
+                    string curCode = dataFile1.Rows[i][5].ToString().Trim();
+                    string curColQty = dataFile1.Rows[i][j].ToString().Trim();
+
+                    var curColName = "";
+                    var curBranch = dataFile1.Rows[0][j].ToString();
+
+                    if (curInventory != "" && curInventory.ToString().Split(' ')[0].ToString() != "Total")
+                        strInventory = curInventory;
                     else if (curInventory.ToString().Split(' ')[0].ToString() == "Total")
                         break;
-                    if (curBrand != "")
-                        dr["Brand"] = curBrand;
+
+                    if (curBrand != "" && curBrand.ToString().Split(' ')[0].ToString() != "Total")
+                        strBrand = curBrand;
                     else if (curBrand.ToString().Split(' ')[0].ToString() == "Total")
-                    {
-                        dr = dataFileTotal.NewRow();
                         break;
-                    }
-                    if (curCategory != "")
-                        dr["Category"] = curCategory;
+
+                    if (curCategory != "" && curCategory.ToString().Split(' ')[0].ToString() != "Total")
+                        strCategory = curCategory;
                     else if (curCategory.ToString().Split(' ')[0].ToString() == "Total")
                         break;
                     if (curModel != "")
-                        dr["Model"] = curModel;
+                    {
+                        strModel = curModel;
+                        if (curModel.ToString().Split(' ')[0].ToString() != "Total" && curCode == "" && curColQty != "")
+                        {
+                            curCode = dataFile1.Rows[i][4].ToString();
+                        }
+                    }
                     else if (curModel.ToString().Split(' ')[0].ToString() == "Total")
                         break;
-                    if (curCode != "")
-                        dr["Code"] = curCode;
-                    else if (curCode.ToString().Split(' ')[0].ToString() == "Total")
+
+                    if (curCode != "" && curCode.ToString().Split(' ')[0].ToString() != "Total")
+                        strCode = curCode;
+                    else if (curModel.ToString().Split(' ')[0].ToString() == "Total")
                         break;
 
                     if (curColQty != "")
                     {
-                        if (int.Parse(curColQty) > 0 && curCode != "")
+                        if (!curBranch.ToString().Split(' ')[0].Equals("TOTAL")
+                        || !curBranch.ToString().Equals("CHO MUON MAU")
+                         || !curBranch.ToString().Equals("OFFICE"))
+                            curColName = dataFile1.Columns[j].ColumnName.ToString();
+
+                        dr["Store"] = curColName;
+                        dr["Inventory"] = strInventory;
+                        dr["Brand"] = strBrand;
+                        dr["Category"] = strCategory;
+                        dr["Model"] = strModel;
+                        dr["Code"] = strCode;
+                        double qty = double.Parse(curColQty);
+                        if (qty > 0 && curCode != "" && curColName != "") 
                         {
-                            dr["Store"] = curColName;
-                            string amount = dataFile1.Rows[i][j+2].ToString();
-                            dr["Qty"] = int.Parse(curColQty);
-                            dr["Amount"] = double.Parse(amount);
-                            DataRow drTemp = dr;
-                            dataFileTotal.Rows.Add(drTemp);
-                            dr = dataFileTotal.NewRow();
-                            dataFileTotal.AcceptChanges();
-                        }
-                        else if(int.Parse(curColQty) > 0 && curCode == "")
-                        {
-                            string amount = dataFile1.Rows[i][j + 2].ToString();
-                            dr["Store"] = curColName;
-                            dr["Code"] = dataFile1.Rows[i][4].ToString();
-                            dr["Qty"] = int.Parse(curColQty);
-                            dr["Amount"] = double.Parse(amount);
-                            DataRow drTemp = dr;
-                            dataFileTotal.Rows.Add(drTemp);
-                            dr = dataFileTotal.NewRow();
-                            dataFileTotal.AcceptChanges();
+                                string amount = dataFile1.Rows[i][j + 2].ToString();
+                                dr["Qty"] = (int)qty;
+                                dr["Amount"] = double.Parse(amount);
+                                DataRow drTemp = dr;
+                                dataFileTotal.Rows.Add(drTemp);
+                                dr = dataFileTotal.NewRow();
                         }
                         dataGridView1.Invoke((MethodInvoker)delegate { dataGridView1.DataSource = dataFileTotal; });
-                        Thread.Sleep(2000);
+                        lsLog.Invoke((MethodInvoker)delegate { lsLog.Items.Insert(0, "Current Index: [" + i + "][" + j + "]: " + curColName + "" + curBranch + ""); });
                     }
                     else
                         break;
