@@ -75,6 +75,9 @@
     <Reference Include="DevExpress.Sparkline.v17.1.Core" />
     <Reference Include="DevExpress.XtraEditors.v17.1" />
     <Reference Include="DevExpress.Printing.v17.1.Core" />
+    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="ExcelDataReader, Version=3.1.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.3.1.0\lib\net45\ExcelDataReader.dll</HintPath>
       <Private>True</Private>
@@ -101,6 +104,12 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmShowWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShowWindow.Designer.cs">
+      <DependentUpon>frmShowWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="OpenFileExcel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,8 +119,23 @@
     <Compile Include="UControls\UC_ImportFileExecute.Designer.cs">
       <DependentUpon>UC_ImportFileExecute.cs</DependentUpon>
     </Compile>
+    <Compile Include="UControls\UC_ImportFileExecuteDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UControls\UC_ImportFileExecuteDetail.Designer.cs">
+      <DependentUpon>UC_ImportFileExecuteDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UControls\UC_InsertProduct.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UControls\UC_InsertProduct.Designer.cs">
+      <DependentUpon>UC_InsertProduct.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShowWindow.resx">
+      <DependentUpon>frmShowWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -126,6 +150,12 @@
     </Compile>
     <EmbeddedResource Include="UControls\UC_ImportFileExecute.resx">
       <DependentUpon>UC_ImportFileExecute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UControls\UC_ImportFileExecuteDetail.resx">
+      <DependentUpon>UC_ImportFileExecuteDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UControls\UC_InsertProduct.resx">
+      <DependentUpon>UC_InsertProduct.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />

@@ -40,18 +40,23 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.lblTitle = new DevExpress.XtraEditors.LabelControl();
-            this.lsLog = new DevExpress.XtraEditors.ListBoxControl();
+            this.lsLog1 = new DevExpress.XtraEditors.ListBoxControl();
             this.proBar3 = new DevExpress.XtraEditors.ProgressBarControl();
             this.proBar2 = new DevExpress.XtraEditors.ProgressBarControl();
             this.proBar1 = new DevExpress.XtraEditors.ProgressBarControl();
-            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            this.lblTitle3 = new DevExpress.XtraEditors.LabelControl();
+            this.lblTitle2 = new DevExpress.XtraEditors.LabelControl();
             this.lblPer3 = new DevExpress.XtraEditors.LabelControl();
             this.lblPer2 = new DevExpress.XtraEditors.LabelControl();
             this.lblPer1 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            this.lblTitle1 = new DevExpress.XtraEditors.LabelControl();
+            this.lsLog2 = new DevExpress.XtraEditors.ListBoxControl();
+            this.lsLog3 = new DevExpress.XtraEditors.ListBoxControl();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnShowData = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlFile)).BeginInit();
             this.groupControlFile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPathFile3.Properties)).BeginInit();
@@ -59,11 +64,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtPathFile1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lsLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lsLog1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.proBar3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.proBar2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.proBar1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lsLog2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lsLog3)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupControlFile
@@ -212,68 +222,37 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 10F);
             this.groupControl1.AppearanceCaption.Options.UseFont = true;
-            this.groupControl1.Controls.Add(this.dataGridView1);
-            this.groupControl1.Controls.Add(this.lblTitle);
-            this.groupControl1.Controls.Add(this.lsLog);
+            this.groupControl1.Controls.Add(this.btnShowData);
+            this.groupControl1.Controls.Add(this.tableLayoutPanel1);
             this.groupControl1.Controls.Add(this.proBar3);
             this.groupControl1.Controls.Add(this.proBar2);
             this.groupControl1.Controls.Add(this.proBar1);
-            this.groupControl1.Controls.Add(this.labelControl6);
-            this.groupControl1.Controls.Add(this.labelControl5);
+            this.groupControl1.Controls.Add(this.lblTitle3);
+            this.groupControl1.Controls.Add(this.lblTitle2);
             this.groupControl1.Controls.Add(this.lblPer3);
             this.groupControl1.Controls.Add(this.lblPer2);
             this.groupControl1.Controls.Add(this.lblPer1);
-            this.groupControl1.Controls.Add(this.labelControl4);
+            this.groupControl1.Controls.Add(this.lblTitle1);
             this.groupControl1.Location = new System.Drawing.Point(26, 305);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(871, 292);
+            this.groupControl1.Size = new System.Drawing.Size(871, 309);
             this.groupControl1.TabIndex = 1;
             this.groupControl1.Text = "Tiến trình thực hiện";
             // 
-            // dataGridView1
+            // lsLog1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(437, 124);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(419, 163);
-            this.dataGridView1.TabIndex = 1;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.Appearance.Font = new System.Drawing.Font("Tahoma", 11F);
-            this.lblTitle.Appearance.Options.UseFont = true;
-            this.lblTitle.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblTitle.Location = new System.Drawing.Point(5, 103);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(171, 19);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Quá trình thực hiện";
-            // 
-            // lsLog
-            // 
-            this.lsLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.lsLog.Appearance.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lsLog.Appearance.Options.UseBackColor = true;
-            this.lsLog.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lsLog.Items.AddRange(new object[] {
-            "fg",
-            "sfdg",
-            "sfg",
-            "sfd",
-            "gsdfg"});
-            this.lsLog.Location = new System.Drawing.Point(5, 124);
-            this.lsLog.Name = "lsLog";
-            this.lsLog.Size = new System.Drawing.Size(426, 163);
-            this.lsLog.TabIndex = 0;
+            this.lsLog1.Appearance.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lsLog1.Appearance.Options.UseBackColor = true;
+            this.lsLog1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lsLog1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lsLog1.Location = new System.Drawing.Point(0, 0);
+            this.lsLog1.Name = "lsLog1";
+            this.lsLog1.Size = new System.Drawing.Size(568, 86);
+            this.lsLog1.TabIndex = 0;
             // 
             // proBar3
             // 
-            this.proBar3.EditValue = 100;
-            this.proBar3.Location = new System.Drawing.Point(585, 69);
+            this.proBar3.Location = new System.Drawing.Point(5, 173);
             this.proBar3.Name = "proBar3";
             this.proBar3.Properties.Maximum = 1000;
             this.proBar3.Properties.Step = 1;
@@ -282,8 +261,7 @@
             // 
             // proBar2
             // 
-            this.proBar2.EditValue = 100;
-            this.proBar2.Location = new System.Drawing.Point(297, 69);
+            this.proBar2.Location = new System.Drawing.Point(5, 122);
             this.proBar2.Name = "proBar2";
             this.proBar2.Properties.Maximum = 1000;
             this.proBar2.Properties.Step = 1;
@@ -292,7 +270,6 @@
             // 
             // proBar1
             // 
-            this.proBar1.EditValue = 100;
             this.proBar1.Location = new System.Drawing.Point(5, 69);
             this.proBar1.Name = "proBar1";
             this.proBar1.Properties.Maximum = 1000;
@@ -300,27 +277,27 @@
             this.proBar1.Size = new System.Drawing.Size(281, 15);
             this.proBar1.TabIndex = 0;
             // 
-            // labelControl6
+            // lblTitle3
             // 
-            this.labelControl6.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.labelControl6.Appearance.Options.UseFont = true;
-            this.labelControl6.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl6.Location = new System.Drawing.Point(585, 44);
-            this.labelControl6.Name = "labelControl6";
-            this.labelControl6.Size = new System.Drawing.Size(107, 19);
-            this.labelControl6.TabIndex = 0;
-            this.labelControl6.Text = "3.Fashion";
+            this.lblTitle3.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.lblTitle3.Appearance.Options.UseFont = true;
+            this.lblTitle3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblTitle3.Location = new System.Drawing.Point(5, 148);
+            this.lblTitle3.Name = "lblTitle3";
+            this.lblTitle3.Size = new System.Drawing.Size(221, 19);
+            this.lblTitle3.TabIndex = 0;
+            this.lblTitle3.Text = "3.Fashion";
             // 
-            // labelControl5
+            // lblTitle2
             // 
-            this.labelControl5.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.labelControl5.Appearance.Options.UseFont = true;
-            this.labelControl5.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl5.Location = new System.Drawing.Point(297, 44);
-            this.labelControl5.Name = "labelControl5";
-            this.labelControl5.Size = new System.Drawing.Size(107, 19);
-            this.labelControl5.TabIndex = 0;
-            this.labelControl5.Text = "2.Global";
+            this.lblTitle2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.lblTitle2.Appearance.Options.UseFont = true;
+            this.lblTitle2.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblTitle2.Location = new System.Drawing.Point(5, 97);
+            this.lblTitle2.Name = "lblTitle2";
+            this.lblTitle2.Size = new System.Drawing.Size(221, 19);
+            this.lblTitle2.TabIndex = 0;
+            this.lblTitle2.Text = "2.Global";
             // 
             // lblPer3
             // 
@@ -331,11 +308,11 @@
             this.lblPer3.Appearance.Options.UseTextOptions = true;
             this.lblPer3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.lblPer3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblPer3.Location = new System.Drawing.Point(802, 44);
+            this.lblPer3.Location = new System.Drawing.Point(222, 148);
             this.lblPer3.Name = "lblPer3";
             this.lblPer3.Size = new System.Drawing.Size(64, 19);
             this.lblPer3.TabIndex = 0;
-            this.lblPer3.Text = "10%";
+            this.lblPer3.Text = "0%";
             // 
             // lblPer2
             // 
@@ -346,11 +323,11 @@
             this.lblPer2.Appearance.Options.UseTextOptions = true;
             this.lblPer2.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.lblPer2.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblPer2.Location = new System.Drawing.Point(512, 45);
+            this.lblPer2.Location = new System.Drawing.Point(220, 98);
             this.lblPer2.Name = "lblPer2";
             this.lblPer2.Size = new System.Drawing.Size(64, 19);
             this.lblPer2.TabIndex = 0;
-            this.lblPer2.Text = "10%";
+            this.lblPer2.Text = "0%";
             // 
             // lblPer1
             // 
@@ -365,18 +342,100 @@
             this.lblPer1.Name = "lblPer1";
             this.lblPer1.Size = new System.Drawing.Size(64, 19);
             this.lblPer1.TabIndex = 0;
-            this.lblPer1.Text = "10%";
+            this.lblPer1.Text = "0%";
             // 
-            // labelControl4
+            // lblTitle1
             // 
-            this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.labelControl4.Appearance.Options.UseFont = true;
-            this.labelControl4.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl4.Location = new System.Drawing.Point(5, 44);
-            this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Size = new System.Drawing.Size(107, 19);
-            this.labelControl4.TabIndex = 0;
-            this.labelControl4.Text = "1.Samsonite";
+            this.lblTitle1.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.lblTitle1.Appearance.Options.UseFont = true;
+            this.lblTitle1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblTitle1.Location = new System.Drawing.Point(5, 44);
+            this.lblTitle1.Name = "lblTitle1";
+            this.lblTitle1.Size = new System.Drawing.Size(221, 19);
+            this.lblTitle1.TabIndex = 0;
+            this.lblTitle1.Text = "1.Samsonite";
+            // 
+            // lsLog2
+            // 
+            this.lsLog2.Appearance.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lsLog2.Appearance.Options.UseBackColor = true;
+            this.lsLog2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lsLog2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lsLog2.Location = new System.Drawing.Point(0, 0);
+            this.lsLog2.Name = "lsLog2";
+            this.lsLog2.Size = new System.Drawing.Size(568, 86);
+            this.lsLog2.TabIndex = 0;
+            // 
+            // lsLog3
+            // 
+            this.lsLog3.Appearance.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lsLog3.Appearance.Options.UseBackColor = true;
+            this.lsLog3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lsLog3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lsLog3.Location = new System.Drawing.Point(0, 0);
+            this.lsLog3.Name = "lsLog3";
+            this.lsLog3.Size = new System.Drawing.Size(568, 88);
+            this.lsLog3.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(292, 26);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(574, 278);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lsLog1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(568, 86);
+            this.panel1.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lsLog2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 95);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(568, 86);
+            this.panel2.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.lsLog3);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 187);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(568, 88);
+            this.panel3.TabIndex = 2;
+            // 
+            // btnShowData
+            // 
+            this.btnShowData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnShowData.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btnShowData.Appearance.Options.UseFont = true;
+            this.btnShowData.Location = new System.Drawing.Point(8, 254);
+            this.btnShowData.Name = "btnShowData";
+            this.btnShowData.Size = new System.Drawing.Size(276, 47);
+            this.btnShowData.TabIndex = 7;
+            this.btnShowData.Text = "Xem kết quả";
+            this.btnShowData.Click += new System.EventHandler(this.btnShowData_Click);
             // 
             // UC_ImportFileExecute
             // 
@@ -397,11 +456,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtPathFile1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lsLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lsLog1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.proBar3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.proBar2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.proBar1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lsLog2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lsLog3)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -423,14 +487,19 @@
         private DevExpress.XtraEditors.ProgressBarControl proBar3;
         private DevExpress.XtraEditors.ProgressBarControl proBar2;
         private DevExpress.XtraEditors.ProgressBarControl proBar1;
-        private DevExpress.XtraEditors.LabelControl labelControl6;
-        private DevExpress.XtraEditors.LabelControl labelControl5;
+        private DevExpress.XtraEditors.LabelControl lblTitle3;
+        private DevExpress.XtraEditors.LabelControl lblTitle2;
         private DevExpress.XtraEditors.LabelControl lblPer3;
         private DevExpress.XtraEditors.LabelControl lblPer2;
         private DevExpress.XtraEditors.LabelControl lblPer1;
-        private DevExpress.XtraEditors.LabelControl labelControl4;
-        private DevExpress.XtraEditors.LabelControl lblTitle;
-        private DevExpress.XtraEditors.ListBoxControl lsLog;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private DevExpress.XtraEditors.LabelControl lblTitle1;
+        private DevExpress.XtraEditors.ListBoxControl lsLog1;
+        private DevExpress.XtraEditors.ListBoxControl lsLog3;
+        private DevExpress.XtraEditors.ListBoxControl lsLog2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel1;
+        private DevExpress.XtraEditors.SimpleButton btnShowData;
     }
 }

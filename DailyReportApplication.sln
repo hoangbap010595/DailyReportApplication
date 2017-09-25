@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailyReport", "DailyReport\DailyReport.csproj", "{BE03B56D-A59B-4235-B957-A37F7D7C7B3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartialView", "PartialView\PartialView.csproj", "{BDCDFF9A-3BEE-41BC-8395-92078055B0ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,14 @@ Global
 		{BE03B56D-A59B-4235-B957-A37F7D7C7B3B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE03B56D-A59B-4235-B957-A37F7D7C7B3B}.Release|x86.ActiveCfg = Release|x86
 		{BE03B56D-A59B-4235-B957-A37F7D7C7B3B}.Release|x86.Build.0 = Release|x86
+		{BDCDFF9A-3BEE-41BC-8395-92078055B0ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDCDFF9A-3BEE-41BC-8395-92078055B0ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDCDFF9A-3BEE-41BC-8395-92078055B0ED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BDCDFF9A-3BEE-41BC-8395-92078055B0ED}.Debug|x86.Build.0 = Debug|Any CPU
+		{BDCDFF9A-3BEE-41BC-8395-92078055B0ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDCDFF9A-3BEE-41BC-8395-92078055B0ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDCDFF9A-3BEE-41BC-8395-92078055B0ED}.Release|x86.ActiveCfg = Release|Any CPU
+		{BDCDFF9A-3BEE-41BC-8395-92078055B0ED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

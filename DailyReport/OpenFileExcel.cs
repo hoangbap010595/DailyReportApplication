@@ -1,16 +1,11 @@
 ﻿using DevExpress.XtraEditors;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.OleDb;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ExcelDataReader;
-using ExcelDataReader.Core;
 using System.IO;
 
 namespace DailyReport
@@ -74,6 +69,42 @@ namespace DailyReport
                 return null;
             }
         }
+        public static Dictionary<string, object> getInfoFiles()
+        {
+            Dictionary<string, object> lsData = new Dictionary<string, object>();
+            try
+            {
+                OpenFileDialog op = new OpenFileDialog();
+                op.Filter = "Excel .xlsx|*.xlsx|Excel .xls|*.xls";
+                if (DialogResult.OK == op.ShowDialog())
+                {
+                    lsData.Clear();
+                    string constr = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source=" + op.FileName.Trim() + "; Extended Properties = \"Excel 8.0; HDR=Yes; IMEX=1;\";";
+                    DbProviderFactory factory = DbProviderFactories.GetFactory("System.Data.OleDb");
+                    DbConnection con = factory.CreateConnection();
+                    con.ConnectionString = constr;
+                    con.Open();
+                    DataTable dt = con.GetSchema("Tables");
+                    con.Close();
+
+                    lsData.Add("fileName", op.FileName.Trim());
+
+                    int i = 1;
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string str = (string)row["TABLE_NAME"];
+                        lsData.Add("selectSheet" + i, str.Trim());
+                        i++;
+                    }
+                }
+                return lsData;
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show("Error: " + ex.Message);
+                return null;
+            }
+        }
 
         public static List<Dictionary<string, object>> getDataFromExcelToList(string fileName, string selectSheet)
         {
@@ -111,7 +142,7 @@ namespace DailyReport
 
         }
 
-        public static DataTable getDataExcelFromFileToDataTable(string filePath)
+        public static DataTable getDataExcelFromFileToDataTable(string filePath, string selectSheet)
         {
             using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -130,12 +161,12 @@ namespace DailyReport
                     //Get all Table
                     DataTableCollection tables = result.Tables;
                     //Get Table
-                    DataTable dt = tables["Sheet1"];
+                    string sheet = selectSheet.Split('$')[0].ToString().Trim();
+                    DataTable dt = tables[sheet];
                     return dt;
                 }
 
             }
-
         }
     }
 }
