@@ -48,7 +48,10 @@
     <Compile Include="DAL\v1HashMd5.cs" />
     <Compile Include="DAL\v1SqlHelper.cs" />
     <Compile Include="DAL\v2SqlHelper.cs" />
-    <Compile Include="Product.cs" />
+    <Compile Include="Model\BrandMain.cs" />
+    <Compile Include="Model\Brand.cs" />
+    <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\ReportResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

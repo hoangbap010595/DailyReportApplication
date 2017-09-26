@@ -41,6 +41,8 @@
             this.gridColumnCode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnQty = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnAmount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnExportExcel = new DevExpress.XtraEditors.SimpleButton();
+            this.gridColumnBrandMain = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
@@ -83,6 +85,7 @@
             this.gridColumnReportFor,
             this.gridColumnInventory,
             this.gridColumnStore,
+            this.gridColumnBrandMain,
             this.gridColumnBrand,
             this.gridColumnCategory,
             this.gridColumnModel,
@@ -91,17 +94,17 @@
             this.gridColumnPrice,
             this.gridColumnAmount});
             this.gridView1.GridControl = this.gridControl1;
-            this.gridView1.GroupCount = 2;
+            this.gridView1.GroupCount = 3;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AutoExpandAllGroups = true;
             this.gridView1.OptionsBehavior.ReadOnly = true;
             this.gridView1.OptionsClipboard.AllowCopy = DevExpress.Utils.DefaultBoolean.True;
             this.gridView1.OptionsClipboard.AllowExcelFormat = DevExpress.Utils.DefaultBoolean.True;
             this.gridView1.OptionsSelection.MultiSelect = true;
-            this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gridColumnReportFor, DevExpress.Data.ColumnSortOrder.Ascending),
-            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gridColumnStore, DevExpress.Data.ColumnSortOrder.Ascending)});
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gridColumnStore, DevExpress.Data.ColumnSortOrder.Ascending),
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gridColumnBrandMain, DevExpress.Data.ColumnSortOrder.Ascending)});
             // 
             // gridColumnSTT
             // 
@@ -115,7 +118,7 @@
             this.gridColumnSTT.Name = "gridColumnSTT";
             this.gridColumnSTT.Visible = true;
             this.gridColumnSTT.VisibleIndex = 0;
-            this.gridColumnSTT.Width = 62;
+            this.gridColumnSTT.Width = 83;
             // 
             // gridColumnReportFor
             // 
@@ -145,7 +148,7 @@
             this.gridColumnStore.FieldName = "Store";
             this.gridColumnStore.Name = "gridColumnStore";
             this.gridColumnStore.Visible = true;
-            this.gridColumnStore.VisibleIndex = 2;
+            this.gridColumnStore.VisibleIndex = 1;
             // 
             // gridColumnBrand
             // 
@@ -222,10 +225,31 @@
             this.gridColumnAmount.VisibleIndex = 8;
             this.gridColumnAmount.Width = 70;
             // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExportExcel.Location = new System.Drawing.Point(725, 4);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(145, 23);
+            this.btnExportExcel.TabIndex = 1;
+            this.btnExportExcel.Text = "Export Excel";
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
+            // 
+            // gridColumnBrandMain
+            // 
+            this.gridColumnBrandMain.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumnBrandMain.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumnBrandMain.Caption = "BrandMain";
+            this.gridColumnBrandMain.FieldName = "BrandMain";
+            this.gridColumnBrandMain.Name = "gridColumnBrandMain";
+            this.gridColumnBrandMain.Visible = true;
+            this.gridColumnBrandMain.VisibleIndex = 2;
+            // 
             // UC_ImportFileExecuteDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.gridControl1);
             this.Name = "UC_ImportFileExecuteDetail";
             this.Size = new System.Drawing.Size(885, 326);
@@ -251,5 +275,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnQty;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnPrice;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnAmount;
+        private DevExpress.XtraEditors.SimpleButton btnExportExcel;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnBrandMain;
     }
 }

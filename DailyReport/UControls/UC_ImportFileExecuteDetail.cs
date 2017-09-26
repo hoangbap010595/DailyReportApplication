@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using System.Data.Linq;
+
 
 namespace DailyReport.UControls
 {
@@ -27,6 +23,11 @@ namespace DailyReport.UControls
         private void UC_ImportFileExecuteDetail_Load(object sender, EventArgs e)
         {
             gridControl1.DataSource = _dataTable;
+        }
+
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            gridView1.SaveFileFromGridView();
         }
     }
 }
