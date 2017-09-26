@@ -22,30 +22,12 @@ namespace DailyReport.UControls
 
         private void UC_ImportFileExecuteDetail_Load(object sender, EventArgs e)
         {
-            var items = _dataTable.AsEnumerable().GroupBy(
-            x => new { Store = x.Field<string>("Store"), BrandMain = x.Field<string>("BrandMain") }
-            ).Select
-            (
-                n => new
-                {
-                    Store = n.Key.Store,
-                    BrandMain = n.Key.BrandMain,
-                    TotalQty = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Qty")))),
-                    TotalAmount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Amount")))),
-                    Discount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Discount")))),
-                    TotalNetAmount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Amount"))) - n.Sum(z => Convert.ToInt32(z.Field<string>("Discount")))),
-                }
-            ).OrderBy(x=>x.Store)
-            .ToList();
-
-            //DataTable dtResult = new DataTable();
-
-            gridControl1.DataSource = items;
+            gridControl1.DataSource = _dataTable;
         }
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            gridView1.SaveFileFromGridView();
+            //gridView1.SaveFileFromGridView();
         }
     }
 }

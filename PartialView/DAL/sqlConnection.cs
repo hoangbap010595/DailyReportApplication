@@ -9,7 +9,7 @@ namespace PartialView.DAL
 {
     public static class sqlConnection
     {
-        public static string Conn(string connectionString = "")
+        public static string Conn(string connectionString = "sqlConnectionRead")
         {
             string strConn = "";
 

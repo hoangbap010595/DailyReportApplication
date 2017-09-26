@@ -35,9 +35,9 @@
             this.gridColumnStore = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnBrandMain = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnQty = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumnDiscount = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnAmount = new DevExpress.XtraGrid.Columns.GridColumn();
             this.btnExportExcel = new DevExpress.XtraEditors.SimpleButton();
-            this.gridColumnDiscount = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
@@ -51,14 +51,14 @@
             this.gridColumnPrice.Caption = "Gross Sales";
             this.gridColumnPrice.DisplayFormat.FormatString = "#.###";
             this.gridColumnPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.gridColumnPrice.FieldName = "TotalAmount";
+            this.gridColumnPrice.FieldName = "Amount";
             this.gridColumnPrice.GroupFormat.FormatString = "{0:#.###}";
             this.gridColumnPrice.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumnPrice.MaxWidth = 100;
             this.gridColumnPrice.MinWidth = 100;
             this.gridColumnPrice.Name = "gridColumnPrice";
             this.gridColumnPrice.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", "{0:#.###}")});
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Amount", "{0:#.###}")});
             this.gridColumnPrice.Visible = true;
             this.gridColumnPrice.VisibleIndex = 3;
             this.gridColumnPrice.Width = 100;
@@ -93,15 +93,17 @@
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.GroupCount = 1;
             this.gridView1.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalQty", this.gridColumnQty, "{0:0.##}"),
-            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalAmount", this.gridColumnPrice, "{0:#.###}"),
-            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalNetAmount", this.gridColumnAmount, "{0:#.###}")});
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Qty", this.gridColumnQty, "{0:0.##}"),
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Amount", this.gridColumnPrice, "{0:#.###}"),
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NetSales", this.gridColumnAmount, "{0:#.###}"),
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Discount", this.gridColumnDiscount, "{0:#.###}")});
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsBehavior.AutoExpandAllGroups = true;
             this.gridView1.OptionsBehavior.ReadOnly = true;
             this.gridView1.OptionsClipboard.AllowCopy = DevExpress.Utils.DefaultBoolean.True;
             this.gridView1.OptionsClipboard.AllowExcelFormat = DevExpress.Utils.DefaultBoolean.True;
             this.gridView1.OptionsSelection.MultiSelect = true;
+            this.gridView1.OptionsView.ShowFooter = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             this.gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.gridColumnStore, DevExpress.Data.ColumnSortOrder.Ascending)});
@@ -130,6 +132,8 @@
             this.gridColumnStore.GroupInterval = DevExpress.XtraGrid.ColumnGroupInterval.Value;
             this.gridColumnStore.Name = "gridColumnStore";
             this.gridColumnStore.OptionsEditForm.CaptionLocation = DevExpress.XtraGrid.EditForm.EditFormColumnCaptionLocation.None;
+            this.gridColumnStore.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "Store", "{0}")});
             this.gridColumnStore.Visible = true;
             this.gridColumnStore.VisibleIndex = 1;
             // 
@@ -137,8 +141,8 @@
             // 
             this.gridColumnBrandMain.AppearanceHeader.Options.UseTextOptions = true;
             this.gridColumnBrandMain.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumnBrandMain.Caption = "BrandMain";
-            this.gridColumnBrandMain.FieldName = "BrandMain";
+            this.gridColumnBrandMain.Caption = "Brand";
+            this.gridColumnBrandMain.FieldName = "Brand";
             this.gridColumnBrandMain.Name = "gridColumnBrandMain";
             this.gridColumnBrandMain.Visible = true;
             this.gridColumnBrandMain.VisibleIndex = 1;
@@ -151,17 +155,36 @@
             this.gridColumnQty.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.gridColumnQty.Caption = "Qty";
             this.gridColumnQty.DisplayFormat.FormatString = "#.#";
-            this.gridColumnQty.FieldName = "TotalQty";
+            this.gridColumnQty.FieldName = "Qty";
             this.gridColumnQty.GroupFormat.FormatString = "{0:#.###}";
             this.gridColumnQty.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumnQty.MaxWidth = 60;
             this.gridColumnQty.MinWidth = 60;
             this.gridColumnQty.Name = "gridColumnQty";
             this.gridColumnQty.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalQty", "{0:0.##}")});
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Qty", "{0:0.##}")});
             this.gridColumnQty.Visible = true;
             this.gridColumnQty.VisibleIndex = 2;
             this.gridColumnQty.Width = 60;
+            // 
+            // gridColumnDiscount
+            // 
+            this.gridColumnDiscount.AppearanceCell.Options.UseTextOptions = true;
+            this.gridColumnDiscount.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.gridColumnDiscount.AppearanceHeader.Options.UseTextOptions = true;
+            this.gridColumnDiscount.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.gridColumnDiscount.Caption = "Discount";
+            this.gridColumnDiscount.FieldName = "Discount";
+            this.gridColumnDiscount.GroupFormat.FormatString = "{0:#.###}";
+            this.gridColumnDiscount.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.gridColumnDiscount.MaxWidth = 100;
+            this.gridColumnDiscount.MinWidth = 100;
+            this.gridColumnDiscount.Name = "gridColumnDiscount";
+            this.gridColumnDiscount.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Discount", "{0:0.##}")});
+            this.gridColumnDiscount.Visible = true;
+            this.gridColumnDiscount.VisibleIndex = 4;
+            this.gridColumnDiscount.Width = 100;
             // 
             // gridColumnAmount
             // 
@@ -172,14 +195,14 @@
             this.gridColumnAmount.Caption = "Net Sales";
             this.gridColumnAmount.DisplayFormat.FormatString = "#.###";
             this.gridColumnAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.gridColumnAmount.FieldName = "TotalNetAmount";
+            this.gridColumnAmount.FieldName = "NetSales";
             this.gridColumnAmount.GroupFormat.FormatString = "{0:#.###}";
             this.gridColumnAmount.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.gridColumnAmount.MaxWidth = 100;
             this.gridColumnAmount.MinWidth = 100;
             this.gridColumnAmount.Name = "gridColumnAmount";
             this.gridColumnAmount.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TotalNetAmount", "{0:#.###}")});
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NetSales", "{0:#.###}")});
             this.gridColumnAmount.Visible = true;
             this.gridColumnAmount.VisibleIndex = 5;
             this.gridColumnAmount.Width = 100;
@@ -193,23 +216,6 @@
             this.btnExportExcel.TabIndex = 1;
             this.btnExportExcel.Text = "Export Excel";
             this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
-            // 
-            // gridColumnDiscount
-            // 
-            this.gridColumnDiscount.AppearanceCell.Options.UseTextOptions = true;
-            this.gridColumnDiscount.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.gridColumnDiscount.AppearanceHeader.Options.UseTextOptions = true;
-            this.gridColumnDiscount.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.gridColumnDiscount.Caption = "Discount";
-            this.gridColumnDiscount.FieldName = "Discount";
-            this.gridColumnDiscount.GroupFormat.FormatString = "{0:#.###}";
-            this.gridColumnDiscount.GroupFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.gridColumnDiscount.MaxWidth = 100;
-            this.gridColumnDiscount.MinWidth = 100;
-            this.gridColumnDiscount.Name = "gridColumnDiscount";
-            this.gridColumnDiscount.Visible = true;
-            this.gridColumnDiscount.VisibleIndex = 4;
-            this.gridColumnDiscount.Width = 100;
             // 
             // UC_ImportFileExecuteDetail_2
             // 

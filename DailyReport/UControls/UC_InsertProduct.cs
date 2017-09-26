@@ -24,15 +24,16 @@ namespace DailyReport.UControls
         {
             try
             {
-                Dictionary<string, object> data = OpenFileExcel.getInfoFile();
+                Dictionary<string, object> data = OpenFileExcel.getInfoFiles();
                 if (data != null)
                 {
                     txtPathFile1.Text = data["fileName"].ToString();
                     data.Remove("fileName");
                     foreach (var item in data)
                     {
-                        cbbSheet.Properties.Items.Add(item.Value);
+                        cbbSheet.Properties.Items.Add(item.Value.ToString().Trim(new char['\'']).Replace("\'",""));
                     }
+                    cbbSheet.SelectedIndex = 0;
                 }
             }
             catch (Exception ex) { XtraMessageBox.Show("Lỗi: " + ex.Message); }

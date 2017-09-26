@@ -24,6 +24,7 @@ namespace DailyReport.UControls
         private DataTable dataTempDiscount3;
         private DataTable dataFileTotal;
         private DataTable dataFileTotalDiscount;
+        private DataTable dataFileTotalALL;
         private string title1 = "1.Samsonite";
         private string title2 = "2.Global";
         private string title3 = "3.Fashion";
@@ -35,7 +36,6 @@ namespace DailyReport.UControls
             dataFile2 = new DataTable();
             dataFile3 = new DataTable();
             createTable();
-
         }
         private void createTable()
         {
@@ -54,6 +54,7 @@ namespace DailyReport.UControls
             dataFileTotal.Columns.Add("Price");
             dataFileTotal.Columns.Add("Amount");
             dataFileTotal.Columns.Add("Discount");
+            dataFileTotal.Columns.Add("NetSales");
 
             dataFileTotalDiscount = new DataTable();
             dataFileTotalDiscount.Columns.Add("STT");
@@ -64,6 +65,15 @@ namespace DailyReport.UControls
             dataFileTotalDiscount.Columns.Add("BrandMain");
             dataFileTotalDiscount.Columns.Add("Brand");
             dataFileTotalDiscount.Columns.Add("Discount");
+
+            dataFileTotalALL = new DataTable();
+            dataFileTotalALL.Columns.Add("STT");
+            dataFileTotalALL.Columns.Add("Store");
+            dataFileTotalALL.Columns.Add("Brand");
+            dataFileTotalALL.Columns.Add("Qty");
+            dataFileTotalALL.Columns.Add("Amount");
+            dataFileTotalALL.Columns.Add("Discount");
+            dataFileTotalALL.Columns.Add("NetSales");
 
             dataTemp1 = dataFileTotal.Copy();
             dataTemp2 = dataFileTotal.Copy();
@@ -90,9 +100,8 @@ namespace DailyReport.UControls
                     dataFile1 = OpenFileExcel.getDataExcelFromFileToDataTable(data["fileName"].ToString(), selectSheet);
                 }
             }
-            catch (Exception ex) { XtraMessageBox.Show("Lỗi: " + ex.Message); }
+            catch {  }
         }
-
         private void btnChooseFile2_Click(object sender, EventArgs e)
         {
             try
@@ -106,9 +115,8 @@ namespace DailyReport.UControls
                     dataFile2 = OpenFileExcel.getDataExcelFromFileToDataTable(data["fileName"].ToString(), selectSheet);
                 }
             }
-            catch (Exception ex) { XtraMessageBox.Show("Lỗi: " + ex.Message); }
+            catch {  }
         }
-
         private void btnChooseFile3_Click(object sender, EventArgs e)
         {
             try
@@ -122,7 +130,7 @@ namespace DailyReport.UControls
                     dataFile3 = OpenFileExcel.getDataExcelFromFileToDataTable(data["fileName"].ToString(), selectSheet);
                 }
             }
-            catch (Exception ex) { XtraMessageBox.Show("Lỗi: " + ex.Message); }
+            catch {  }
         }
 
         private void checkExistsFile()
@@ -228,13 +236,6 @@ namespace DailyReport.UControls
                     else if (curModel.ToString().Split(' ')[0].ToString() == "Total")
                         break;
 
-                    if (strInventory == "Discounts")
-                    {
-                        if (strBrand == "DISCOUNT")
-                        {
-
-                        }
-                    }
                     if (curColQty != "")
                     {
                         if (curBranch.ToString().Split(' ')[0] != "Total"
@@ -275,6 +276,7 @@ namespace DailyReport.UControls
             }
             lblTitle1.Invoke((MethodInvoker)delegate { lblTitle1.Text = title1 + " - [" + count + "]"; });
             dataTemp1.AcceptChanges();
+            updateBrandMain(dataTemp1);
         }
         private void executeDataTable2()
         {
@@ -374,6 +376,7 @@ namespace DailyReport.UControls
             }
             lblTitle2.Invoke((MethodInvoker)delegate { lblTitle2.Text = title2 + " - [" + count + "]"; });
             dataTemp2.AcceptChanges();
+            updateBrandMain(dataTemp2);
         }
         private void executeDataTable3()
         {
@@ -467,6 +470,7 @@ namespace DailyReport.UControls
             }
             lblTitle3.Invoke((MethodInvoker)delegate { lblTitle3.Text = title3 + " - [" + count + "]"; });
             dataTemp3.AcceptChanges();
+            updateBrandMain(dataTemp3);
         }
 
         private void excecuteDataDiscount1()
@@ -509,40 +513,36 @@ namespace DailyReport.UControls
                         break;
                     if (strInventory == "Discounts")
                     {
-                        if (strBrand == "DISCOUNT")
+                        if (strBrand == "DISCOUNT" && curAmount != "")
                         {
-                            if (curAmount != "")
+                            if (curBranch.ToString().Split(' ')[0] != "Total"
+                            && curBranch.ToString() != "TOTAL"
+                            && curBranch.ToString() != "CHO MUON MAU"
+                            && curBranch.ToString() != "OFFICE")
+                                curColName = dataFile1.Columns[j].ColumnName.ToString();
+
+                            double amount = Math.Abs(double.Parse(curAmount));
+                            if (curColName != "" && amount > 0)
                             {
-                                if (curBranch.ToString().Split(' ')[0] != "Total"
-                                && curBranch.ToString() != "TOTAL"
-                                && curBranch.ToString() != "CHO MUON MAU"
-                                && curBranch.ToString() != "OFFICE")
-                                    curColName = dataFile1.Columns[j].ColumnName.ToString();
+                                dr["ReportFor"] = "SAM";
+                                dr["Inventory"] = strInventory;
+                                dr["Store"] = curColName;
+                                dr["Brand"] = strCategory;
+                                dr["Discount"] = (int)(amount);
 
-                                double amount = Math.Abs(double.Parse(curAmount));
-                                if (curColName != "" && amount > 0)
-                                {
-                                    dr["ReportFor"] = "SAM";
-                                    dr["Inventory"] = strInventory;
-                                    dr["Store"] = curColName;
-                                    dr["Brand"] = strCategory;
-                                    dr["Discount"] = (int)(amount);
-
-                                    DataRow drTemp = dr;
-                                    dataTempDiscount1.Rows.Add(drTemp);
-                                    dr = dataTempDiscount1.NewRow();
-                                    lsLog1.Invoke((MethodInvoker)delegate { lsLog1.Items.Insert(0, "[SAM]:Current Position: [" + i + "][" + j + "]: " + curColName + "" + curBranch + "-[" + strCategory + " - "+ amount.ToString() + "]"); });
-                                }//end if                
-                            }
-                            else break;
+                                DataRow drTemp = dr;
+                                dataTempDiscount1.Rows.Add(drTemp);
+                                dr = dataTempDiscount1.NewRow();
+                                lsLog1.Invoke((MethodInvoker)delegate { lsLog1.Items.Insert(0, "[SAM]:Discount Position: [" + i + "][" + j + "]: " + curColName + "" + curBranch + "-[" + strCategory + " - " + amount.ToString() + "]"); });
+                            }//end if                
                         }
-                        else break;
                     }
                     else
                         break;
                 }//end for
             }
             dataTempDiscount1.AcceptChanges();
+            updateBrandMain(dataTempDiscount1);
         }
         private void excecuteDataDiscount2()
         {
@@ -618,6 +618,7 @@ namespace DailyReport.UControls
                 }//end for
             }
             dataTempDiscount2.AcceptChanges();
+            updateBrandMain(dataTempDiscount2);
         }
         private void excecuteDataDiscount3()
         {
@@ -687,6 +688,7 @@ namespace DailyReport.UControls
                 }//end for
             }
             dataTempDiscount3.AcceptChanges();
+            updateBrandMain(dataTempDiscount3);
         }
         private void btnShowData_Click(object sender, EventArgs e)
         {
@@ -697,26 +699,29 @@ namespace DailyReport.UControls
             if (dataTemp3.Rows.Count > 0)
                 dataFileTotal.Merge(dataTemp3, true);
             if (dataFileTotal.Rows.Count > 0)
-                updateDataTotal();
+            {
+                updateDataTemp1();
+                updateDataTemp2();
+                updateDataTemp3();
+                foreach (DataRow dr in dataFileTotalALL.Rows)
+                {
+                    int am = dr["Amount"].ToString() == "" ? 0 : int.Parse(dr["Amount"].ToString());
+                    int ds = dr["Discount"].ToString() == "" ? 0 : int.Parse(dr["Discount"].ToString());
+                    dr["NetSales"] = am - ds;
+                }
+                dataFileTotalALL.AcceptChanges();
 
-            if (dataTempDiscount1.Rows.Count > 0)
-                dataFileTotalDiscount.Merge(dataTempDiscount1, true);
-            if (dataTempDiscount2.Rows.Count > 0)
-                dataFileTotalDiscount.Merge(dataTempDiscount2, true);
-            if (dataTempDiscount3.Rows.Count > 0)
-                dataFileTotalDiscount.Merge(dataTempDiscount3, true);
-            if (dataFileTotalDiscount.Rows.Count > 0)
-                updateDataTotalDiscount();
+                UC_ImportFileExecuteDetail_2 uc = new UC_ImportFileExecuteDetail_2(dataFileTotalALL);
+                frmShowWindow frm = new frmShowWindow(uc);
+                frm.Text = "Result Import Data From File Excel";
+                frm.Show();
+            }
 
-            doMerageData();
-            UC_ImportFileExecuteDetail_2 uc = new UC_ImportFileExecuteDetail_2(dataFileTotal);
-            frmShowWindow frm = new frmShowWindow(uc);
-            frm.Text = "Result Import Data From File Excel";
-            frm.Show();
+
         }
-        private void updateDataTotal()
+        private void updateBrandMain(DataTable dt)
         {
-            foreach (DataRow dr in dataFileTotal.Rows)
+            foreach (DataRow dr in dt.Rows)
             {
                 if (dr["Brand"].ToString().Split(' ')[0].Contains("SAMSONITE"))
                 {
@@ -729,7 +734,7 @@ namespace DailyReport.UControls
                 else
                     dr["BrandMain"] = dr["Brand"];
             }
-            foreach (DataRow dr in dataFileTotal.Rows)
+            foreach (DataRow dr in dt.Rows)
             {
                 switch (dr["BrandMain"].ToString())
                 {
@@ -753,68 +758,152 @@ namespace DailyReport.UControls
 
                 }
             }
-            dataFileTotal.AcceptChanges();
+            dt.AcceptChanges();
         }
-        private void updateDataTotalDiscount()
+
+        private void updateDataTemp1()
         {
-            foreach (DataRow dr in dataFileTotalDiscount.Rows)
-            {
-                if (dr["Brand"].ToString().Split(' ')[0].Contains("SAMSONITE"))
-                {
-                    dr["BrandMain"] = "SAMSONITE";
-                }
-                else if (dr["Brand"].ToString().Equals("AT"))
-                {
-                    dr["BrandMain"] = "AMERICAN TOURISTER";
-                }
-                else
-                    dr["BrandMain"] = dr["Brand"];
-            }
-            foreach (DataRow dr in dataFileTotalDiscount.Rows)
-            {
-                switch (dr["BrandMain"].ToString())
-                {
-                    case "SAMSONITE":
-                        dr["BrandID"] = 1;
-                        break;
-                    case "AMERICAN TOURISTER":
-                        dr["BrandMain"] = "AT";
-                        dr["BrandID"] = 2;
-                        break;
-                    case "LIPAULT":
-                        dr["BrandID"] = 3;
-                        break;
-                    case "HIGH SIERRA":
-                        dr["BrandID"] = 4;
-                        break;
+            var itemDataTemp1 = dataTemp1.AsEnumerable().GroupBy(
+         x => new { Store = x.Field<string>("Store"), BrandMain = x.Field<string>("BrandMain") }
+         ).Select
+         (
+             n => new
+             {
+                 Store = n.Key.Store,
+                 BrandMain = n.Key.BrandMain,
+                 Qty = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Qty")))),
+                 NetAmount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Amount")))),
+             }
+         ).OrderBy(x => x.Store)
+         .ToList();
 
-                    case "KAMILIANT":
-                        dr["BrandID"] = 5;
-                        break;
-
+            var itemsDiscount = dataTempDiscount1.AsEnumerable().GroupBy(
+            x => new { Store = x.Field<string>("Store"), BrandMain = x.Field<string>("BrandMain") }
+            ).Select
+            (
+                n => new
+                {
+                    Store = n.Key.Store,
+                    BrandMain = n.Key.BrandMain,
+                    Discount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Discount")))),
                 }
+            ).OrderBy(x => x.Store)
+            .ToList();
+            foreach (var dr1 in itemDataTemp1)
+            {
+                DataRow dr = dataFileTotalALL.NewRow();
+                dr["Store"] = dr1.Store;
+                dr["Brand"] = dr1.BrandMain;
+                dr["Qty"] = dr1.Qty;
+                dr["Amount"] = dr1.NetAmount;
+                dataFileTotalALL.Rows.Add(dr);
             }
-            dataFileTotal.AcceptChanges();
+            foreach (DataRow dr1 in dataFileTotalALL.Rows)
+            {
+
+                foreach (var dr2 in itemsDiscount)
+                {
+
+                    if ((dr1["Store"].ToString() == dr2.Store.ToString()) && (dr1["Brand"].ToString() == dr2.BrandMain.ToString()))
+                        dr1["Discount"] = dr2.Discount;
+                }
+
+            }
         }
-
-        private void doMerageData()
+        private void updateDataTemp2()
         {
-            foreach (DataRow dr1 in dataFileTotal.Rows)
-            {
-                foreach (DataRow dr2 in dataFileTotalDiscount.Rows)
+            var itemDataTemp2 = dataTemp2.AsEnumerable().GroupBy(
+          x => new { Store = x.Field<string>("Store"), BrandMain = x.Field<string>("BrandMain") }
+          ).Select
+          (
+              n => new
+              {
+                  Store = n.Key.Store,
+                  BrandMain = n.Key.BrandMain,
+                  Qty = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Qty")))),
+                  NetAmount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Amount")))),
+              }
+          ).OrderBy(x => x.Store)
+          .ToList();
+
+            var itemsDiscount = dataTempDiscount2.AsEnumerable().GroupBy(
+            x => new { Store = x.Field<string>("Store"), BrandMain = x.Field<string>("BrandMain") }
+            ).Select
+            (
+                n => new
                 {
-                    string st1 = dr1["Store"].ToString().ToUpper();
-                    string br1 = dr1["BrandID"].ToString().ToUpper();
-                    string st2 = dr2["Store"].ToString().ToUpper();
-                    string br2 = dr2["BrandID"].ToString().ToUpper();
-                    if (st1.Equals(st2) && br1 == br2)
-                    {
-                        dr1["Discount"] = dr2["Discount"];
-                    }
+                    Store = n.Key.Store,
+                    BrandMain = n.Key.BrandMain,
+                    Discount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Discount")))),
+                }
+            ).OrderBy(x => x.Store)
+            .ToList();
+            foreach (var dr1 in itemDataTemp2)
+            {
+                DataRow dr = dataFileTotalALL.NewRow();
+                dr["Store"] = dr1.Store;
+                dr["Brand"] = dr1.BrandMain;
+                dr["Qty"] = dr1.Qty;
+                dr["Amount"] = dr1.NetAmount;
+                dataFileTotalALL.Rows.Add(dr);
+            }
+            foreach (DataRow dr1 in dataFileTotalALL.Rows)
+            {
+                foreach (var dr2 in itemsDiscount)
+                {
+
+                    if ((dr1["Store"].ToString() == dr2.Store.ToString()) && (dr1["Brand"].ToString() == dr2.BrandMain.ToString()))
+                        dr1["Discount"] = dr2.Discount;
                 }
             }
-
-            dataFileTotal.AcceptChanges();
         }
+        private void updateDataTemp3()
+        {
+            var itemDataTemp3 = dataTemp3.AsEnumerable().GroupBy(
+         x => new { Store = x.Field<string>("Store"), BrandMain = x.Field<string>("BrandMain") }
+         ).Select
+         (
+             n => new
+             {
+                 Store = n.Key.Store,
+                 BrandMain = n.Key.BrandMain,
+                 Qty = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Qty")))),
+                 NetAmount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Amount")))),
+             }
+         ).OrderBy(x => x.Store)
+         .ToList();
+
+            var itemsDiscount = dataTempDiscount3.AsEnumerable().GroupBy(
+            x => new { Store = x.Field<string>("Store"), BrandMain = x.Field<string>("BrandMain") }
+            ).Select
+            (
+                n => new
+                {
+                    Store = n.Key.Store,
+                    BrandMain = n.Key.BrandMain,
+                    Discount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Discount")))),
+                }
+            ).OrderBy(x => x.Store)
+            .ToList();
+            foreach (var dr1 in itemDataTemp3)
+            {
+                DataRow dr = dataFileTotalALL.NewRow();
+                dr["Store"] = dr1.Store;
+                dr["Brand"] = dr1.BrandMain;
+                dr["Qty"] = dr1.Qty;
+                dr["Amount"] = dr1.NetAmount;
+                dataFileTotalALL.Rows.Add(dr);
+            }
+            foreach (DataRow dr1 in dataFileTotalALL.Rows)
+            {
+                foreach (var dr2 in itemsDiscount)
+                {
+
+                    if ((dr1["Store"].ToString() == dr2.Store.ToString()) && (dr1["Brand"].ToString() == dr2.BrandMain.ToString()))
+                        dr1["Discount"] = dr2.Discount;
+                }
+            }
+        }
+
     }
 }
