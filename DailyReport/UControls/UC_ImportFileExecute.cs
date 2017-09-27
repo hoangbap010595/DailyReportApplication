@@ -70,10 +70,10 @@ namespace DailyReport.UControls
             dataFileTotalALL.Columns.Add("STT");
             dataFileTotalALL.Columns.Add("Store");
             dataFileTotalALL.Columns.Add("Brand");
-            dataFileTotalALL.Columns.Add("Qty");
-            dataFileTotalALL.Columns.Add("Amount");
-            dataFileTotalALL.Columns.Add("Discount");
-            dataFileTotalALL.Columns.Add("NetSales");
+            dataFileTotalALL.Columns.Add("Qty", typeof(Int32));
+            dataFileTotalALL.Columns.Add("Amount", typeof(Int32));
+            dataFileTotalALL.Columns.Add("Discount", typeof(Int32));
+            dataFileTotalALL.Columns.Add("NetSales", typeof(Int32));
 
             dataTemp1 = dataFileTotal.Copy();
             dataTemp2 = dataFileTotal.Copy();
@@ -100,7 +100,7 @@ namespace DailyReport.UControls
                     dataFile1 = OpenFileExcel.getDataExcelFromFileToDataTable(data["fileName"].ToString(), selectSheet);
                 }
             }
-            catch {  }
+            catch (Exception ex) { XtraMessageBox.Show(ex.Message, "Lỗi"); }
         }
         private void btnChooseFile2_Click(object sender, EventArgs e)
         {
@@ -115,7 +115,7 @@ namespace DailyReport.UControls
                     dataFile2 = OpenFileExcel.getDataExcelFromFileToDataTable(data["fileName"].ToString(), selectSheet);
                 }
             }
-            catch {  }
+            catch (Exception ex) { XtraMessageBox.Show(ex.Message, "Lỗi"); }
         }
         private void btnChooseFile3_Click(object sender, EventArgs e)
         {
@@ -130,13 +130,15 @@ namespace DailyReport.UControls
                     dataFile3 = OpenFileExcel.getDataExcelFromFileToDataTable(data["fileName"].ToString(), selectSheet);
                 }
             }
-            catch {  }
+            catch (Exception ex) { XtraMessageBox.Show(ex.Message, "Lỗi"); }
         }
 
-        private void checkExistsFile()
+        private bool checkExistsFile()
         {
-            if (txtPathFile1.Text.Trim() != "" && txtPathFile2.Text.Trim() != "" && txtPathFile3.Text.Trim() != "")
-                btnExecuteData.Enabled = true;
+            if (txtPathFile1.Text.Trim() != "" || txtPathFile2.Text.Trim() != "" || txtPathFile3.Text.Trim() != "")
+                return true;
+            else
+                return false;
         }
 
         private void setText(Control a, string text)
@@ -149,33 +151,38 @@ namespace DailyReport.UControls
         }
         private void btnExecuteData_Click(object sender, EventArgs e)
         {
-            createTable();
-            int maxProBar1 = dataFile1.Rows.Count - 2;
-            int maxProBar2 = dataFile2.Rows.Count - 2;
-            int maxProBar3 = dataFile3.Rows.Count - 1;
+            if (checkExistsFile())
+            {
+                createTable();
+                int maxProBar1 = dataFile1.Rows.Count - 2;
+                int maxProBar2 = dataFile2.Rows.Count - 2;
+                int maxProBar3 = dataFile3.Rows.Count - 1;
 
-            proBar1.Properties.Maximum = maxProBar1;
-            proBar2.Properties.Maximum = maxProBar2;
-            proBar3.Properties.Maximum = maxProBar3;
+                proBar1.Properties.Maximum = maxProBar1;
+                proBar2.Properties.Maximum = maxProBar2;
+                proBar3.Properties.Maximum = maxProBar3;
 
-            Thread t = new Thread(new ThreadStart(() =>
-            {
-                executeDataTable1();
-                excecuteDataDiscount1();
-            }));
-            t.Start();
-            Thread t2 = new Thread(new ThreadStart(() =>
-            {
-                executeDataTable2();
-                excecuteDataDiscount2();
-            }));
-            t2.Start();
-            Thread t3 = new Thread(new ThreadStart(() =>
-            {
-                executeDataTable3();
-                excecuteDataDiscount3();
-            }));
-            t3.Start();
+                Thread t = new Thread(new ThreadStart(() =>
+                {
+                    executeDataTable1();
+                    excecuteDataDiscount1();
+                }));
+                t.Start();
+                Thread t2 = new Thread(new ThreadStart(() =>
+                {
+                    executeDataTable2();
+                    excecuteDataDiscount2();
+                }));
+                t2.Start();
+                Thread t3 = new Thread(new ThreadStart(() =>
+                {
+                    executeDataTable3();
+                    excecuteDataDiscount3();
+                }));
+                t3.Start();
+            }
+            else
+                XtraMessageBox.Show("Bạn chưa chọn file để thực thi.");
         }
         private void executeDataTable1()
         {
@@ -254,7 +261,7 @@ namespace DailyReport.UControls
                             dr["Model"] = strModel;
                             dr["Code"] = strCode;
                             double qty = double.Parse(curColQty);
-                            if (qty > 0 && curCode != "")
+                            if (qty != 0 && curCode != "")
                             {
                                 double amount = double.Parse(dataFile1.Rows[i][j + 2].ToString());
                                 dr["Price"] = (int)(amount / qty);
@@ -354,7 +361,7 @@ namespace DailyReport.UControls
                             dr["Model"] = strModel;
                             dr["Code"] = strCode;
                             double qty = double.Parse(curColQty);
-                            if (qty > 0 && curCode != "")
+                            if (qty != 0 && curCode != "")
                             {
                                 double amount = double.Parse(dataFile2.Rows[i][j + 2].ToString());
                                 dr["Price"] = (int)(amount / qty);
@@ -448,7 +455,7 @@ namespace DailyReport.UControls
                             dr3["Model"] = strModel;
                             dr3["Code"] = strCode;
                             double qty = double.Parse(curColQty);
-                            if (qty > 0 && curCode != "")
+                            if (qty != 0 && curCode != "")
                             {
                                 double amount = double.Parse(dataFile3.Rows[i][j + 2].ToString());
                                 dr3["Price"] = (int)(amount / qty);
@@ -690,35 +697,6 @@ namespace DailyReport.UControls
             dataTempDiscount3.AcceptChanges();
             updateBrandMain(dataTempDiscount3);
         }
-        private void btnShowData_Click(object sender, EventArgs e)
-        {
-            if (dataTemp1.Rows.Count > 0)
-                dataFileTotal.Merge(dataTemp1, true);
-            if (dataTemp2.Rows.Count > 0)
-                dataFileTotal.Merge(dataTemp2, true);
-            if (dataTemp3.Rows.Count > 0)
-                dataFileTotal.Merge(dataTemp3, true);
-            if (dataFileTotal.Rows.Count > 0)
-            {
-                updateDataTemp1();
-                updateDataTemp2();
-                updateDataTemp3();
-                foreach (DataRow dr in dataFileTotalALL.Rows)
-                {
-                    int am = dr["Amount"].ToString() == "" ? 0 : int.Parse(dr["Amount"].ToString());
-                    int ds = dr["Discount"].ToString() == "" ? 0 : int.Parse(dr["Discount"].ToString());
-                    dr["NetSales"] = am - ds;
-                }
-                dataFileTotalALL.AcceptChanges();
-
-                UC_ImportFileExecuteDetail_2 uc = new UC_ImportFileExecuteDetail_2(dataFileTotalALL);
-                frmShowWindow frm = new frmShowWindow(uc);
-                frm.Text = "Result Import Data From File Excel";
-                frm.Show();
-            }
-
-
-        }
         private void updateBrandMain(DataTable dt)
         {
             foreach (DataRow dr in dt.Rows)
@@ -905,5 +883,59 @@ namespace DailyReport.UControls
             }
         }
 
+        private void btnDetail_Click(object sender, EventArgs e)
+        {
+            dataFileTotal.Rows.Clear();
+            if (dataTemp1.Rows.Count > 0)
+                dataFileTotal.Merge(dataTemp1, true);
+            if (dataTemp2.Rows.Count > 0)
+                dataFileTotal.Merge(dataTemp2, true);
+            if (dataTemp3.Rows.Count > 0)
+                dataFileTotal.Merge(dataTemp3, true);
+            if (dataFileTotal.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dataFileTotal.Rows)
+                {
+                    int am = dr["Amount"].ToString() == "" ? 0 : int.Parse(dr["Amount"].ToString());
+                    int ds = dr["Discount"].ToString() == "" ? 0 : int.Parse(dr["Discount"].ToString());
+                    dr["NetSales"] = am - ds;
+                }
+                dataFileTotal.AcceptChanges();
+                UC_ImportFileExecuteDetail uc = new UC_ImportFileExecuteDetail(dataFileTotal);
+                frmShowWindow frm = new frmShowWindow(uc);
+                frm.Text = "Result Import Data From File Excel";
+                frm.ShowDialog();
+            }
+            else
+                XtraMessageBox.Show("Không có dữ liệu hiển thị");
+           
+        }
+        private void btnShowData_Click(object sender, EventArgs e)
+        {
+            dataFileTotalALL.Rows.Clear();
+            if (dataTemp1.Rows.Count > 0)
+                updateDataTemp1();
+            if (dataTemp2.Rows.Count > 0)
+                updateDataTemp2();
+            if (dataTemp3.Rows.Count > 0)
+                updateDataTemp3();
+            if (dataFileTotalALL.Rows.Count > 0)
+            {    
+                foreach (DataRow dr in dataFileTotalALL.Rows)
+                {
+                    int am = dr["Amount"].ToString() == "" ? 0 : int.Parse(dr["Amount"].ToString());
+                    int ds = dr["Discount"].ToString() == "" ? 0 : int.Parse(dr["Discount"].ToString());
+                    dr["NetSales"] = am - ds;
+                }
+                dataFileTotalALL.AcceptChanges();
+                UC_ImportFileExecuteDetail_2 uc = new UC_ImportFileExecuteDetail_2(dataFileTotalALL);
+                frmShowWindow frm = new frmShowWindow(uc);
+                frm.Text = "Result Import Data From File Excel";
+                frm.ShowDialog();
+            }
+            else
+                XtraMessageBox.Show("Không có dữ liệu hiển thị");
+
+        }
     }
 }

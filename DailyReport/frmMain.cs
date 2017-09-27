@@ -24,6 +24,7 @@ namespace DailyReport
             //UC_InsertProduct frm = new UC_InsertProduct();
             frm.Dock = DockStyle.Fill;
             this.Controls.Add(frm);
+            //this.Size = new Size(1000, Screen.PrimaryScreen.Bounds.Height);
         }
     }
 }

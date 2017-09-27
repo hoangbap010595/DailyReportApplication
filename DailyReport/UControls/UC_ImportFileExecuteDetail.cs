@@ -27,7 +27,7 @@ namespace DailyReport.UControls
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            //gridView1.SaveFileFromGridView();
+            gridView1.SaveFileFromGridView();
         }
     }
 }

@@ -57,6 +57,7 @@
             this.lblPer2 = new DevExpress.XtraEditors.LabelControl();
             this.lblPer1 = new DevExpress.XtraEditors.LabelControl();
             this.lblTitle1 = new DevExpress.XtraEditors.LabelControl();
+            this.btnDetail = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlFile)).BeginInit();
             this.groupControlFile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPathFile3.Properties)).BeginInit();
@@ -222,6 +223,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 10F);
             this.groupControl1.AppearanceCaption.Options.UseFont = true;
+            this.groupControl1.Controls.Add(this.btnDetail);
             this.groupControl1.Controls.Add(this.btnShowData);
             this.groupControl1.Controls.Add(this.tableLayoutPanel1);
             this.groupControl1.Controls.Add(this.proBar3);
@@ -437,6 +439,19 @@
             this.lblTitle1.TabIndex = 0;
             this.lblTitle1.Text = "1.Samsonite";
             // 
+            // btnDetail
+            // 
+            this.btnDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDetail.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btnDetail.Appearance.Options.UseFont = true;
+            this.btnDetail.Location = new System.Drawing.Point(8, 206);
+            this.btnDetail.Name = "btnDetail";
+            this.btnDetail.Size = new System.Drawing.Size(276, 47);
+            this.btnDetail.TabIndex = 7;
+            this.btnDetail.Text = "Xem chi tiết";
+            this.btnDetail.Visible = false;
+            this.btnDetail.Click += new System.EventHandler(this.btnDetail_Click);
+            // 
             // UC_ImportFileExecute
             // 
             this.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
@@ -501,5 +516,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
         private DevExpress.XtraEditors.SimpleButton btnShowData;
+        private DevExpress.XtraEditors.SimpleButton btnDetail;
     }
 }
