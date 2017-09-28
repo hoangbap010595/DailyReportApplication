@@ -99,6 +99,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrandModel.cs" />
+    <Compile Include="frmBrand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBrand.Designer.cs">
+      <DependentUpon>frmBrand.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +146,9 @@
     <Compile Include="UControls\UC_InsertProduct.Designer.cs">
       <DependentUpon>UC_InsertProduct.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmBrand.resx">
+      <DependentUpon>frmBrand.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>

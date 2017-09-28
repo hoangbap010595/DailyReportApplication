@@ -40,6 +40,7 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.btnDetail = new DevExpress.XtraEditors.SimpleButton();
             this.btnShowData = new DevExpress.XtraEditors.SimpleButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -57,7 +58,6 @@
             this.lblPer2 = new DevExpress.XtraEditors.LabelControl();
             this.lblPer1 = new DevExpress.XtraEditors.LabelControl();
             this.lblTitle1 = new DevExpress.XtraEditors.LabelControl();
-            this.btnDetail = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.groupControlFile)).BeginInit();
             this.groupControlFile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPathFile3.Properties)).BeginInit();
@@ -240,6 +240,19 @@
             this.groupControl1.Size = new System.Drawing.Size(871, 309);
             this.groupControl1.TabIndex = 1;
             this.groupControl1.Text = "Tiến trình thực hiện";
+            // 
+            // btnDetail
+            // 
+            this.btnDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDetail.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.btnDetail.Appearance.Options.UseFont = true;
+            this.btnDetail.Location = new System.Drawing.Point(8, 206);
+            this.btnDetail.Name = "btnDetail";
+            this.btnDetail.Size = new System.Drawing.Size(276, 47);
+            this.btnDetail.TabIndex = 7;
+            this.btnDetail.Text = "Xem chi tiết";
+            this.btnDetail.Visible = false;
+            this.btnDetail.Click += new System.EventHandler(this.btnDetail_Click);
             // 
             // btnShowData
             // 
@@ -438,19 +451,6 @@
             this.lblTitle1.Size = new System.Drawing.Size(221, 19);
             this.lblTitle1.TabIndex = 0;
             this.lblTitle1.Text = "1.Samsonite";
-            // 
-            // btnDetail
-            // 
-            this.btnDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDetail.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btnDetail.Appearance.Options.UseFont = true;
-            this.btnDetail.Location = new System.Drawing.Point(8, 206);
-            this.btnDetail.Name = "btnDetail";
-            this.btnDetail.Size = new System.Drawing.Size(276, 47);
-            this.btnDetail.TabIndex = 7;
-            this.btnDetail.Text = "Xem chi tiết";
-            this.btnDetail.Visible = false;
-            this.btnDetail.Click += new System.EventHandler(this.btnDetail_Click);
             // 
             // UC_ImportFileExecute
             // 

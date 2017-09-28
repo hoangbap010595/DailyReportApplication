@@ -19,12 +19,23 @@ namespace DailyReport
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            this.Controls.Clear();
+            panelControlMain.Controls.Clear();
             UC_ImportFileExecute frm = new UC_ImportFileExecute();
             //UC_InsertProduct frm = new UC_InsertProduct();
             frm.Dock = DockStyle.Fill;
-            this.Controls.Add(frm);
+            panelControlMain.Controls.Add(frm);
             //this.Size = new Size(1000, Screen.PrimaryScreen.Bounds.Height);
+        }
+
+        private void brandToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmBrand frm = new frmBrand();
+            frm.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

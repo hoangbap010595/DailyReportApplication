@@ -193,19 +193,40 @@ namespace DailyReport.UControls
             string strModel = "";
             string strCode = "";
             int count = 0;
-            for (int i = 2; i < dataFile1.Rows.Count; i++)
+            int x = 0;
+            int y = 0;
+            if (dataFile1.Rows.Count > 0)
             {
-                for (int j = 6; j < dataFile1.Columns.Count; j += 8)
+                for (int i = 0; i < 5; i++)
                 {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        string strQty = dataFile1.Rows[i][j].ToString().ToUpper().Trim();
+                        if (strQty == "QTY" || strQty == "qty")
+                        {
+                            x = i + 1;
+                            y = j;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (int i = x; i < dataFile1.Rows.Count; i++)
+            {
+                for (int j = y; j < dataFile1.Columns.Count; j += 8)
+                {
+                    string curStore = dataFile1.Rows[0][j].ToString();
+                    string curBranch = dataFile1.Rows[1][j].ToString();
                     string curInventory = dataFile1.Rows[i][1].ToString().Trim();
                     string curBrand = dataFile1.Rows[i][2].ToString().Trim();
                     string curCategory = dataFile1.Rows[i][3].ToString().Trim();
                     string curModel = dataFile1.Rows[i][4].ToString().Trim();
                     string curCode = dataFile1.Rows[i][5].ToString().Trim();
-                    string curColQty = dataFile1.Rows[i][j].ToString().Trim();
+                    string curCode2 = "";
+                    if (y == 7)
+                        curCode2 = dataFile1.Rows[i][6].ToString().Trim();
 
-                    var curColName = "";
-                    var curBranch = dataFile1.Rows[0][j].ToString();
+                    string curColQty = dataFile1.Rows[i][j].ToString().Trim();
 
                     if (curInventory != "" && curInventory.ToString().Split(' ')[0].ToString() != "Total")
                         strInventory = curInventory;
@@ -222,7 +243,7 @@ namespace DailyReport.UControls
                         strCategory = curCategory;
                         if (curCategory.ToString().Split(' ')[0].ToString() != "Total" && curModel == "" && curColQty != "")
                         {
-                            curModel = dataFile1.Rows[i][3].ToString();
+                            curModel = curCategory;
                         }
                     }
                     else if (curCategory.ToString().Split(' ')[0].ToString() == "Total")
@@ -232,30 +253,39 @@ namespace DailyReport.UControls
                         strModel = curModel;
                         if (curModel.ToString().Split(' ')[0].ToString() != "Total" && curCode == "" && curColQty != "")
                         {
-                            curCode = dataFile1.Rows[i][4].ToString();
+                            curCode = curModel;
                         }
                     }
                     else if (curModel.ToString().Split(' ')[0].ToString() == "Total")
                         break;
 
                     if (curCode != "" && curCode.ToString().Split(' ')[0].ToString() != "Total")
+                    {
                         strCode = curCode;
-                    else if (curModel.ToString().Split(' ')[0].ToString() == "Total")
+                        if (curCode.ToString().Split(' ')[0].ToString() != "Total" && curCode2 == "" && curColQty != "")
+                        {
+                            curCode2 = curCode;
+                        }
+                    }
+                    else if (curCode.ToString().Split(' ')[0].ToString() == "Total")
+                        break;
+
+                    if (curCode2 != "" && curCode2.ToString().Split(' ')[0].ToString() != "Total")
+                        strCode = curCode2;
+                    else if (curCode2.ToString().Split(' ')[0].ToString() == "Total")
                         break;
 
                     if (curColQty != "")
                     {
-                        if (curBranch.ToString().Split(' ')[0] != "Total"
+                        if (curStore != "" && curBranch.ToString().Split(' ')[0] != "Total"
                             && curBranch.ToString() != "TOTAL"
                             && curBranch.ToString() != "CHO MUON MAU"
                             && curBranch.ToString() != "OFFICE")
-                            curColName = dataFile1.Columns[j].ColumnName.ToString();
-                        if (curColName != "")
                         {
 
                             dr["ReportFor"] = "SAM";
                             dr["Inventory"] = strInventory;
-                            dr["Store"] = curColName;
+                            dr["Store"] = curStore;
                             dr["Brand"] = strBrand;
                             dr["Category"] = strCategory;
                             dr["Model"] = strModel;
@@ -271,7 +301,7 @@ namespace DailyReport.UControls
                                 dataTemp1.Rows.Add(drTemp);
                                 dr = dataTemp1.NewRow();
                                 count++;
-                                lsLog1.Invoke((MethodInvoker)delegate { lsLog1.Items.Insert(0, "[SAM]:Current Position: [" + i + "][" + j + "]: " + curColName + "" + curBranch + "-[" + strBrand + ":" + strCode + "]"); });
+                                lsLog1.Invoke((MethodInvoker)delegate { lsLog1.Items.Insert(0, "[SAM]:Current Position: [" + i + "][" + j + "]: " + curStore + "" + curBranch + "-[" + strBrand + ":" + strCode + "]"); });
                             }//end if                
                         }//end if
                     }
@@ -294,19 +324,40 @@ namespace DailyReport.UControls
             string strModel = "";
             string strCode = "";
             int count = 0;
-            for (int i = 2; i < dataFile2.Rows.Count; i++)
+            int x = 0;
+            int y = 0;
+            if (dataFile2.Rows.Count > 0)
             {
-                for (int j = 6; j < dataFile2.Columns.Count; j += 8)
+                for (int i = 0; i < 5; i++)
                 {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        string strQty = dataFile2.Rows[i][j].ToString().ToUpper().Trim();
+                        if (strQty == "QTY" || strQty == "qty")
+                        {
+                            x = i + 1;
+                            y = j;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (int i = x; i < dataFile2.Rows.Count; i++)
+            {
+                for (int j = y; j < dataFile2.Columns.Count; j += 8)
+                {
+                    string curStore = dataFile2.Rows[0][j].ToString();
+                    string curBranch = dataFile2.Rows[1][j].ToString();
                     string curInventory = dataFile2.Rows[i][1].ToString().Trim();
                     string curBrand = dataFile2.Rows[i][2].ToString().Trim();
                     string curCategory = dataFile2.Rows[i][3].ToString().Trim();
                     string curModel = dataFile2.Rows[i][4].ToString().Trim();
                     string curCode = dataFile2.Rows[i][5].ToString().Trim();
-                    string curColQty = dataFile2.Rows[i][j].ToString().Trim();
+                    string curCode2 = "";
+                    if (y == 7)
+                        curCode2 = dataFile2.Rows[i][6].ToString().Trim();
 
-                    var curColName = "";
-                    var curBranch = dataFile2.Rows[0][j].ToString();
+                    string curColQty = dataFile2.Rows[i][j].ToString().Trim();
 
                     if (curInventory != "" && curInventory.ToString().Split(' ')[0].ToString() != "Total")
                         strInventory = curInventory;
@@ -323,7 +374,7 @@ namespace DailyReport.UControls
                         strCategory = curCategory;
                         if (curCategory.ToString().Split(' ')[0].ToString() != "Total" && curModel == "" && curColQty != "")
                         {
-                            curModel = dataFile2.Rows[i][3].ToString();
+                            curModel = curCategory;
                         }
                     }
                     else if (curCategory.ToString().Split(' ')[0].ToString() == "Total")
@@ -333,29 +384,39 @@ namespace DailyReport.UControls
                         strModel = curModel;
                         if (curModel.ToString().Split(' ')[0].ToString() != "Total" && curCode == "" && curColQty != "")
                         {
-                            curCode = dataFile2.Rows[i][4].ToString();
+                            curCode = curModel;
                         }
                     }
                     else if (curModel.ToString().Split(' ')[0].ToString() == "Total")
                         break;
 
                     if (curCode != "" && curCode.ToString().Split(' ')[0].ToString() != "Total")
+                    {
                         strCode = curCode;
-                    else if (curModel.ToString().Split(' ')[0].ToString() == "Total")
+                        if (curCode.ToString().Split(' ')[0].ToString() != "Total" && curCode2 == "" && curColQty != "")
+                        {
+                            curCode2 = curCode;
+                        }
+                    }
+                    else if (curCode.ToString().Split(' ')[0].ToString() == "Total")
+                        break;
+
+                    if (curCode2 != "" && curCode.ToString().Split(' ')[0].ToString() != "Total")
+                        strCode = curCode2;
+                    else if (curCode2.ToString().Split(' ')[0].ToString() == "Total")
                         break;
 
                     if (curColQty != "")
                     {
-                        if (curBranch.ToString().Split(' ')[0] != "Total"
+
+                        if (curStore != "" && curBranch.ToString().Split(' ')[0] != "Total"
                             && curBranch.ToString() != "TOTAL"
                             && curBranch.ToString() != "CHO MUON MAU"
                             && curBranch.ToString() != "OFFICE")
-                            curColName = dataFile2.Columns[j].ColumnName.ToString();
-                        if (curColName != "")
                         {
                             dr["ReportFor"] = "GLO";
                             dr["Inventory"] = strInventory;
-                            dr["Store"] = curColName;
+                            dr["Store"] = curStore;
                             dr["Brand"] = strBrand;
                             dr["Category"] = strCategory;
                             dr["Model"] = strModel;
@@ -370,7 +431,7 @@ namespace DailyReport.UControls
                                 DataRow drTemp = dr;
                                 dataTemp2.Rows.Add(drTemp);
                                 dr = dataTemp2.NewRow();
-                                lsLog2.Invoke((MethodInvoker)delegate { lsLog2.Items.Insert(0, "[GLO]:Current Position: [" + i + "][" + j + "]: " + curColName + "" + curBranch + "-[" + strBrand + ":" + strCode + "]"); });
+                                lsLog2.Invoke((MethodInvoker)delegate { lsLog2.Items.Insert(0, "[GLO]:Current Position: [" + i + "][" + j + "]: " + curStore + "" + curBranch + "-[" + strBrand + ":" + strCode + "]"); });
                                 count++;
                             }//end if                
                         }//end if
@@ -394,9 +455,27 @@ namespace DailyReport.UControls
             string strModel = "";
             string strCode = "";
             int count = 0;
-            for (int i = 1; i < dataFile3.Rows.Count; i++)
+            int x = 0;
+            int y = 0;
+            if (dataFile3.Rows.Count > 0)
             {
-                for (int j = 6; j < dataFile3.Columns.Count; j += 8)
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        string strQty = dataFile3.Rows[i][j].ToString().ToUpper().Trim();
+                        if (strQty == "QTY" || strQty == "qty")
+                        {
+                            x = i + 1;
+                            y = j;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (int i = x; i < dataFile3.Rows.Count; i++)
+            {
+                for (int j = y; j < dataFile3.Columns.Count; j += 8)
                 {
                     string curInventory = dataFile3.Rows[i][1].ToString().Trim();
                     string curBrand = dataFile3.Rows[i][2].ToString().Trim();
@@ -405,7 +484,7 @@ namespace DailyReport.UControls
                     string curCode = dataFile3.Rows[i][5].ToString().Trim();
                     string curColQty = dataFile3.Rows[i][j].ToString().Trim();
 
-                    var curColName = dataFile3.Columns[j].ColumnName.ToString();
+                    var curStore = dataFile3.Rows[0][j].ToString();
 
                     if (curInventory != "" && curInventory.ToString().Split(' ')[0].ToString() != "Total")
                         strInventory = curInventory;
@@ -426,7 +505,7 @@ namespace DailyReport.UControls
                         strModel = curModel;
                         if (curModel.ToString().Split(' ')[0].ToString() != "Total" && curCode == "" && curColQty != "")
                         {
-                            curCode = dataFile3.Rows[i][4].ToString();
+                            curCode = curModel;
                         }
                     }
                     else if (curModel.ToString().Split(' ')[0].ToString() == "Total")
@@ -439,34 +518,26 @@ namespace DailyReport.UControls
 
                     if (curColQty != "")
                     {
-                        //if (curColName.ToString().Split(' ')[0] != "Total"
-                        //    && curColName.ToString() != "TOTAL"
-                        //    && curColName.ToString() != "CHO MUON MAU"
-                        //    && curColName.ToString() != "OFFICE")
-                        //    curColName = dataFile3.Columns[j].ColumnName.ToString();
-                        if (curColName != "" && curColName != "TOTAL")
+                        double qty = double.Parse(curColQty);
+                        if (curStore != "" && curStore != "TOTAL" && qty != 0 && curCode != "")
                         {
 
                             dr3["ReportFor"] = "FAS";
                             dr3["Inventory"] = strInventory;
-                            dr3["Store"] = curColName;
+                            dr3["Store"] = curStore;
                             dr3["Brand"] = strBrand;
                             dr3["Category"] = strCategory;
                             dr3["Model"] = strModel;
                             dr3["Code"] = strCode;
-                            double qty = double.Parse(curColQty);
-                            if (qty != 0 && curCode != "")
-                            {
-                                double amount = double.Parse(dataFile3.Rows[i][j + 2].ToString());
-                                dr3["Price"] = (int)(amount / qty);
-                                dr3["Qty"] = (int)qty;
-                                dr3["Amount"] = (int)(amount);
-                                DataRow drTemp = dr3;
-                                dataTemp3.Rows.Add(drTemp);
-                                dr3 = dataTemp3.NewRow();
-                                count += 1;
-                                lsLog3.Invoke((MethodInvoker)delegate { lsLog3.Items.Insert(0, "[FAS]:Current Position: [" + i + "][" + j + "]: " + curColName + "-[" + strBrand + ":" + strCode + "]"); });
-                            }//end if                
+                            double amount = double.Parse(dataFile3.Rows[i][j + 2].ToString());
+                            dr3["Price"] = (int)(amount / qty);
+                            dr3["Qty"] = (int)qty;
+                            dr3["Amount"] = (int)(amount);
+                            DataRow drTemp = dr3;
+                            dataTemp3.Rows.Add(drTemp);
+                            dr3 = dataTemp3.NewRow();
+                            count += 1;
+                            lsLog3.Invoke((MethodInvoker)delegate { lsLog3.Items.Insert(0, "[FAS]:Current Position: [" + i + "][" + j + "]: " + curStore + "-[" + strBrand + ":" + strCode + "]"); });
                         }//end if
                     }
                     else
@@ -486,10 +557,27 @@ namespace DailyReport.UControls
             string strInventory = "";
             string strBrand = "";
             string strCategory = "";
-
-            for (int i = 2; i < dataFile1.Rows.Count; i++)
+            int x = 0;
+            int y = 0;
+            if (dataFile1.Rows.Count > 0)
             {
-                for (int j = 6; j < dataFile1.Columns.Count; j += 8)
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        string strQty = dataFile1.Rows[i][j].ToString().ToUpper().Trim();
+                        if (strQty == "QTY" || strQty == "qty")
+                        {
+                            x = i + 1;
+                            y = j;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (int i = x; i < dataFile1.Rows.Count; i++)
+            {
+                for (int j = y; j < dataFile1.Columns.Count; j += 8)
                 {
                     string curInventory = dataFile1.Rows[i][1].ToString().Trim();
                     string curBrand = dataFile1.Rows[i][2].ToString().Trim();
@@ -498,8 +586,8 @@ namespace DailyReport.UControls
                     string curAmount = dataFile1.Rows[i][j + 2].ToString().Trim();
                     string totalALL = dataFile1.Rows[i][0].ToString().Trim();
 
-                    var curColName = "";
-                    var curBranch = dataFile1.Rows[0][j].ToString();
+                    var curStore = dataFile1.Rows[0][j].ToString();
+                    var curBranch = dataFile1.Rows[1][j].ToString();
 
                     if (curInventory != "" && curInventory.ToString().Split(' ')[0].ToString() != "Total")
                         strInventory = curInventory;
@@ -522,25 +610,24 @@ namespace DailyReport.UControls
                     {
                         if (strBrand == "DISCOUNT" && curAmount != "")
                         {
-                            if (curBranch.ToString().Split(' ')[0] != "Total"
-                            && curBranch.ToString() != "TOTAL"
-                            && curBranch.ToString() != "CHO MUON MAU"
-                            && curBranch.ToString() != "OFFICE")
-                                curColName = dataFile1.Columns[j].ColumnName.ToString();
 
                             double amount = Math.Abs(double.Parse(curAmount));
-                            if (curColName != "" && amount > 0)
+                            if (curStore != "" && amount > 0
+                                && curBranch.ToString().Split(' ')[0] != "Total"
+                                && curBranch.ToString() != "TOTAL"
+                                && curBranch.ToString() != "CHO MUON MAU"
+                                && curBranch.ToString() != "OFFICE")
                             {
                                 dr["ReportFor"] = "SAM";
                                 dr["Inventory"] = strInventory;
-                                dr["Store"] = curColName;
+                                dr["Store"] = curStore;
                                 dr["Brand"] = strCategory;
                                 dr["Discount"] = (int)(amount);
 
                                 DataRow drTemp = dr;
                                 dataTempDiscount1.Rows.Add(drTemp);
                                 dr = dataTempDiscount1.NewRow();
-                                lsLog1.Invoke((MethodInvoker)delegate { lsLog1.Items.Insert(0, "[SAM]:Discount Position: [" + i + "][" + j + "]: " + curColName + "" + curBranch + "-[" + strCategory + " - " + amount.ToString() + "]"); });
+                                lsLog1.Invoke((MethodInvoker)delegate { lsLog1.Items.Insert(0, "[SAM]:Discount Position: [" + i + "][" + j + "]: " + curStore + "" + curBranch + "-[" + strCategory + " - " + amount.ToString() + "]"); });
                             }//end if                
                         }
                     }
@@ -557,10 +644,27 @@ namespace DailyReport.UControls
             string strInventory = "";
             string strBrand = "";
             string strCategory = "";
-
-            for (int i = 2; i < dataFile2.Rows.Count; i++)
+            int x = 0;
+            int y = 0;
+            if (dataFile2.Rows.Count > 0)
             {
-                for (int j = 6; j < dataFile2.Columns.Count; j += 8)
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        string strQty = dataFile2.Rows[i][j].ToString().ToUpper().Trim();
+                        if (strQty == "QTY" || strQty == "qty")
+                        {
+                            x = i + 1;
+                            y = j;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (int i = x; i < dataFile2.Rows.Count; i++)
+            {
+                for (int j = y; j < dataFile2.Columns.Count; j += 8)
                 {
                     string curInventory = dataFile2.Rows[i][1].ToString().Trim();
                     string curBrand = dataFile2.Rows[i][2].ToString().Trim();
@@ -569,8 +673,8 @@ namespace DailyReport.UControls
                     string curAmount = dataFile2.Rows[i][j + 2].ToString().Trim();
                     string totalALL = dataFile2.Rows[i][0].ToString().Trim();
 
-                    var curColName = "";
-                    var curBranch = dataFile2.Rows[0][j].ToString();
+                    var curStore = dataFile2.Rows[0][j].ToString();
+                    var curBranch = dataFile2.Rows[1][j].ToString();
 
                     if (curInventory != "" && curInventory.ToString().Split(' ')[0].ToString() != "Total")
                         strInventory = curInventory;
@@ -595,25 +699,23 @@ namespace DailyReport.UControls
                         {
                             if (curAmount != "")
                             {
-                                if (curBranch.ToString().Split(' ')[0] != "Total"
-                                && curBranch.ToString() != "TOTAL"
-                                && curBranch.ToString() != "CHO MUON MAU"
-                                && curBranch.ToString() != "OFFICE")
-                                    curColName = dataFile2.Columns[j].ColumnName.ToString();
-
                                 double amount = Math.Abs(double.Parse(curAmount));
-                                if (curColName != "" && amount > 0)
+                                if (curStore != "" && amount > 0
+                                    && curBranch.ToString().Split(' ')[0] != "Total"
+                                    && curBranch.ToString() != "TOTAL"
+                                    && curBranch.ToString() != "CHO MUON MAU"
+                                    && curBranch.ToString() != "OFFICE")
                                 {
                                     dr["ReportFor"] = "SAM";
                                     dr["Inventory"] = strInventory;
-                                    dr["Store"] = curColName;
+                                    dr["Store"] = curStore;
                                     dr["Brand"] = strCategory;
                                     dr["Discount"] = (int)(amount);
 
                                     DataRow drTemp = dr;
                                     dataTempDiscount2.Rows.Add(drTemp);
                                     dr = dataTempDiscount2.NewRow();
-                                    lsLog2.Invoke((MethodInvoker)delegate { lsLog2.Items.Insert(0, "[GLO]:Discount Position: [" + i + "][" + j + "]: " + curColName + "" + curBranch + "-[" + strCategory + " - " + amount.ToString() + "]"); });
+                                    lsLog2.Invoke((MethodInvoker)delegate { lsLog2.Items.Insert(0, "[GLO]:Discount Position: [" + i + "][" + j + "]: " + curStore + "" + curBranch + "-[" + strCategory + " - " + amount.ToString() + "]"); });
                                 }//end if                
                             }
                             else break;
@@ -633,10 +735,27 @@ namespace DailyReport.UControls
             string strInventory = "";
             string strBrand = "";
             string strCategory = "";
-
-            for (int i = 2; i < dataFile3.Rows.Count; i++)
+            int x = 0;
+            int y = 0;
+            if (dataFile3.Rows.Count > 0)
             {
-                for (int j = 6; j < dataFile3.Columns.Count; j += 8)
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        string strQty = dataFile3.Rows[i][j].ToString().ToUpper().Trim();
+                        if (strQty == "QTY" || strQty == "qty")
+                        {
+                            x = i + 1;
+                            y = j;
+                            break;
+                        }
+                    }
+                }
+            }
+            for (int i = x; i < dataFile3.Rows.Count; i++)
+            {
+                for (int j = y; j < dataFile3.Columns.Count; j += 8)
                 {
                     string curInventory = dataFile3.Rows[i][1].ToString().Trim();
                     string curBrand = dataFile3.Rows[i][2].ToString().Trim();
@@ -645,7 +764,7 @@ namespace DailyReport.UControls
                     string curAmount = dataFile3.Rows[i][j + 2].ToString().Trim();
                     string totalALL = dataFile3.Rows[i][0].ToString().Trim();
 
-                    var curColName = "";
+                    var curStore  = dataFile3.Rows[0][j].ToString();
 
                     if (curInventory != "" && curInventory.ToString().Split(' ')[0].ToString() != "Total")
                         strInventory = curInventory;
@@ -668,22 +787,22 @@ namespace DailyReport.UControls
                     {
                         if (strBrand == "SALES DISCOUNT")
                         {
-                            curColName = dataFile3.Columns[j].ColumnName.ToString();
-                            if (curAmount != "" && curColName != "TOTAL")
+                            
+                            if (curAmount != "" && curStore != "TOTAL")
                             {
                                 double amount = Math.Abs(double.Parse(curAmount));
-                                if (curColName != "" && amount > 0)
+                                if (curStore != "" && amount > 0)
                                 {
                                     dr["ReportFor"] = "SAM";
                                     dr["Inventory"] = strInventory;
-                                    dr["Store"] = curColName;
+                                    dr["Store"] = curStore;
                                     dr["Brand"] = strCategory;
                                     dr["Discount"] = (int)(amount);
 
                                     DataRow drTemp = dr;
                                     dataTempDiscount3.Rows.Add(drTemp);
                                     dr = dataTempDiscount3.NewRow();
-                                    lsLog3.Invoke((MethodInvoker)delegate { lsLog3.Items.Insert(0, "[FAS]:Discount Position: [" + i + "][" + j + "]: " + curColName + "-[" + strCategory + " - " + amount.ToString() + "]"); });
+                                    lsLog3.Invoke((MethodInvoker)delegate { lsLog3.Items.Insert(0, "[FAS]:Discount Position: [" + i + "][" + j + "]: " + curStore + "-[" + strCategory + " - " + amount.ToString() + "]"); });
                                 }//end if                
                             }
                             else break;
@@ -701,17 +820,31 @@ namespace DailyReport.UControls
         {
             foreach (DataRow dr in dt.Rows)
             {
-                if (dr["Brand"].ToString().Split(' ')[0].Contains("SAMSONITE"))
+                foreach (DataRow dr2 in BrandModel.OpenBrandFromFile().Rows)
                 {
-                    dr["BrandMain"] = "SAMSONITE";
+                    if (dr["Brand"].ToString().Split(' ')[0].Contains(dr2["Brand"].ToString()))
+                    {
+                        dr["BrandMain"] = dr2["BrandMain"].ToString();
+                    }
+                    else if (dr["Brand"].ToString().Equals(dr2["Brand"].ToString()))
+                    {
+                        dr["BrandMain"] = dr2["BrandMain"].ToString();
+                    }
                 }
-                else if (dr["Brand"].ToString().Equals("AT"))
-                {
-                    dr["BrandMain"] = "AMERICAN TOURISTER";
-                }
-                else
-                    dr["BrandMain"] = dr["Brand"];
+
             }
+            foreach (DataRow dr in dt.Rows)
+            {
+
+                if (dr["BrandMain"].ToString() == "")
+                {
+                    XtraMessageBox.Show("Không tìm thấy \"BrandMain\" của Brand: \"" + dr["Brand"].ToString() + "\" trong Group Brand\n1. Thêm brand mới\n2. Tiến hành import lại");
+                    btnShowData.Invoke((MethodInvoker) delegate { btnShowData.Enabled = false; });
+                    return;       
+                }else
+                    btnShowData.Invoke((MethodInvoker)delegate { btnShowData.Enabled = true; });
+            }
+
             foreach (DataRow dr in dt.Rows)
             {
                 switch (dr["BrandMain"].ToString())
@@ -749,8 +882,8 @@ namespace DailyReport.UControls
              {
                  Store = n.Key.Store,
                  BrandMain = n.Key.BrandMain,
-                 Qty = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Qty")))),
-                 NetAmount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Amount")))),
+                 Qty = Convert.ToInt64(n.Sum(z => Convert.ToInt64(z.Field<string>("Qty")))),
+                 NetAmount = Convert.ToInt64(n.Sum(z => Convert.ToInt64(z.Field<string>("Amount")))),
              }
          ).OrderBy(x => x.Store)
          .ToList();
@@ -763,7 +896,7 @@ namespace DailyReport.UControls
                 {
                     Store = n.Key.Store,
                     BrandMain = n.Key.BrandMain,
-                    Discount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Discount")))),
+                    Discount = Convert.ToInt64(n.Sum(z => Convert.ToInt64(z.Field<string>("Discount")))),
                 }
             ).OrderBy(x => x.Store)
             .ToList();
@@ -781,7 +914,6 @@ namespace DailyReport.UControls
 
                 foreach (var dr2 in itemsDiscount)
                 {
-
                     if ((dr1["Store"].ToString() == dr2.Store.ToString()) && (dr1["Brand"].ToString() == dr2.BrandMain.ToString()))
                         dr1["Discount"] = dr2.Discount;
                 }
@@ -798,8 +930,8 @@ namespace DailyReport.UControls
               {
                   Store = n.Key.Store,
                   BrandMain = n.Key.BrandMain,
-                  Qty = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Qty")))),
-                  NetAmount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Amount")))),
+                  Qty = Convert.ToInt64(n.Sum(z => Convert.ToInt64(z.Field<string>("Qty")))),
+                  NetAmount = Convert.ToInt64(n.Sum(z => Convert.ToInt64(z.Field<string>("Amount")))),
               }
           ).OrderBy(x => x.Store)
           .ToList();
@@ -812,7 +944,7 @@ namespace DailyReport.UControls
                 {
                     Store = n.Key.Store,
                     BrandMain = n.Key.BrandMain,
-                    Discount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Discount")))),
+                    Discount = Convert.ToInt64(n.Sum(z => Convert.ToInt64(z.Field<string>("Discount")))),
                 }
             ).OrderBy(x => x.Store)
             .ToList();
@@ -845,8 +977,8 @@ namespace DailyReport.UControls
              {
                  Store = n.Key.Store,
                  BrandMain = n.Key.BrandMain,
-                 Qty = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Qty")))),
-                 NetAmount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Amount")))),
+                 Qty = Convert.ToInt64(n.Sum(z => Convert.ToInt64(z.Field<string>("Qty")))),
+                 NetAmount = Convert.ToInt64(n.Sum(z => Convert.ToInt64(z.Field<string>("Amount")))),
              }
          ).OrderBy(x => x.Store)
          .ToList();
@@ -859,7 +991,7 @@ namespace DailyReport.UControls
                 {
                     Store = n.Key.Store,
                     BrandMain = n.Key.BrandMain,
-                    Discount = Convert.ToInt32(n.Sum(z => Convert.ToInt32(z.Field<string>("Discount")))),
+                    Discount = Convert.ToInt64(n.Sum(z => Convert.ToInt64(z.Field<string>("Discount")))),
                 }
             ).OrderBy(x => x.Store)
             .ToList();
@@ -908,7 +1040,7 @@ namespace DailyReport.UControls
             }
             else
                 XtraMessageBox.Show("Không có dữ liệu hiển thị");
-           
+
         }
         private void btnShowData_Click(object sender, EventArgs e)
         {
@@ -920,7 +1052,7 @@ namespace DailyReport.UControls
             if (dataTemp3.Rows.Count > 0)
                 updateDataTemp3();
             if (dataFileTotalALL.Rows.Count > 0)
-            {    
+            {
                 foreach (DataRow dr in dataFileTotalALL.Rows)
                 {
                     int am = dr["Amount"].ToString() == "" ? 0 : int.Parse(dr["Amount"].ToString());
@@ -937,5 +1069,6 @@ namespace DailyReport.UControls
                 XtraMessageBox.Show("Không có dữ liệu hiển thị");
 
         }
+
     }
 }
