@@ -69,6 +69,7 @@ namespace DailyReport
                 return null;
             }
         }
+		
         public static Dictionary<string, object> getInfoFiles()
         {
             Dictionary<string, object> lsData = new Dictionary<string, object>();
