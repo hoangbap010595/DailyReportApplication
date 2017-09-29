@@ -298,8 +298,10 @@ namespace DailyReport.UControls
                             if (qty != 0 && curCode != "")
                             {
                                 double amount = Math.Abs(double.Parse(dataFile1.Rows[i][j + 2].ToString()));
-                                dr["Price"] = (int)(amount / qty);
+                                dr["Price"] = Math.Abs((int)(amount / qty));
                                 dr["Qty"] = (int)qty;
+                                if (qty < 0)
+                                    amount = amount * -1;
                                 dr["Amount"] = (int)(amount);
                                 DataRow drTemp = dr;
                                 dataTemp1.Rows.Add(drTemp);
@@ -429,8 +431,10 @@ namespace DailyReport.UControls
                             if (qty != 0 && curCode != "")
                             {
                                 double amount = Math.Abs(double.Parse(dataFile2.Rows[i][j + 2].ToString()));
-                                dr["Price"] = (int)(amount / qty);
+                                dr["Price"] = Math.Abs((int)(amount / qty));
                                 dr["Qty"] = (int)qty;
+                                if (qty < 0)
+                                    amount = amount * -1;
                                 dr["Amount"] = (int)(amount);
                                 DataRow drTemp = dr;
                                 dataTemp2.Rows.Add(drTemp);
@@ -534,8 +538,10 @@ namespace DailyReport.UControls
                             dr3["Model"] = strModel;
                             dr3["Code"] = strCode;
                             double amount = Math.Abs(double.Parse(dataFile3.Rows[i][j + 2].ToString()));
-                            dr3["Price"] = (int)(amount / qty);
+                            dr3["Price"] = Math.Abs((int)(amount / qty));
                             dr3["Qty"] = (int)qty;
+                            if (qty < 0)
+                                amount = amount * -1;
                             dr3["Amount"] = (int)(amount);
                             DataRow drTemp = dr3;
                             dataTemp3.Rows.Add(drTemp);
@@ -626,7 +632,7 @@ namespace DailyReport.UControls
                                 dr["Inventory"] = strInventory;
                                 dr["Store"] = curStore;
                                 dr["Brand"] = strCategory;
-                                dr["Discount"] = (int)(amount);
+                                dr["Discount"] = (int)(amount > 0 ? amount * -1 : amount);
 
                                 DataRow drTemp = dr;
                                 dataTempDiscount1.Rows.Add(drTemp);
