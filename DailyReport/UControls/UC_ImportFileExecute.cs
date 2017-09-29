@@ -32,10 +32,10 @@ namespace DailyReport.UControls
         public UC_ImportFileExecute()
         {
             InitializeComponent();
+            createTable();
             dataFile1 = new DataTable();
             dataFile2 = new DataTable();
             dataFile3 = new DataTable();
-            createTable();
         }
         private void createTable()
         {
@@ -154,9 +154,13 @@ namespace DailyReport.UControls
             if (checkExistsFile())
             {
                 createTable();
-                int maxProBar1 = dataFile1.Rows.Count - 2;
-                int maxProBar2 = dataFile2.Rows.Count - 2;
-                int maxProBar3 = dataFile3.Rows.Count - 1;
+                int maxProBar1 = 0, maxProBar2 = 0, maxProBar3 = 0;
+                if (dataFile1.Rows.Count>0)
+                 maxProBar1 = dataFile1.Rows.Count - 2;
+                if (dataFile2.Rows.Count > 0)
+                    maxProBar2 = dataFile2.Rows.Count - 2;
+                if (dataFile3.Rows.Count > 0)
+                    maxProBar3 = dataFile3.Rows.Count - 1;
 
                 proBar1.Properties.Maximum = maxProBar1;
                 proBar2.Properties.Maximum = maxProBar2;
@@ -293,7 +297,7 @@ namespace DailyReport.UControls
                             double qty = double.Parse(curColQty);
                             if (qty != 0 && curCode != "")
                             {
-                                double amount = double.Parse(dataFile1.Rows[i][j + 2].ToString());
+                                double amount = Math.Abs(double.Parse(dataFile1.Rows[i][j + 2].ToString()));
                                 dr["Price"] = (int)(amount / qty);
                                 dr["Qty"] = (int)qty;
                                 dr["Amount"] = (int)(amount);
@@ -424,7 +428,7 @@ namespace DailyReport.UControls
                             double qty = double.Parse(curColQty);
                             if (qty != 0 && curCode != "")
                             {
-                                double amount = double.Parse(dataFile2.Rows[i][j + 2].ToString());
+                                double amount = Math.Abs(double.Parse(dataFile2.Rows[i][j + 2].ToString()));
                                 dr["Price"] = (int)(amount / qty);
                                 dr["Qty"] = (int)qty;
                                 dr["Amount"] = (int)(amount);
@@ -529,7 +533,7 @@ namespace DailyReport.UControls
                             dr3["Category"] = strCategory;
                             dr3["Model"] = strModel;
                             dr3["Code"] = strCode;
-                            double amount = double.Parse(dataFile3.Rows[i][j + 2].ToString());
+                            double amount = Math.Abs(double.Parse(dataFile3.Rows[i][j + 2].ToString()));
                             dr3["Price"] = (int)(amount / qty);
                             dr3["Qty"] = (int)qty;
                             dr3["Amount"] = (int)(amount);
