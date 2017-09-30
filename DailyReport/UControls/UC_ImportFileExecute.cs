@@ -297,11 +297,11 @@ namespace DailyReport.UControls
                             double qty = double.Parse(curColQty);
                             if (qty != 0 && curCode != "")
                             {
-                                double amount = Math.Abs(double.Parse(dataFile1.Rows[i][j + 2].ToString()));
-                                dr["Price"] = Math.Abs((int)(amount / qty));
+                                double amount = double.Parse(dataFile1.Rows[i][j + 2].ToString());
+                                dr["Price"] = (int)(amount / qty);
                                 dr["Qty"] = (int)qty;
-                                if (qty < 0)
-                                    amount = amount * -1;
+                                //if (qty < 0)
+                                //    amount = amount * -1;
                                 dr["Amount"] = (int)(amount);
                                 DataRow drTemp = dr;
                                 dataTemp1.Rows.Add(drTemp);
@@ -430,11 +430,11 @@ namespace DailyReport.UControls
                             double qty = double.Parse(curColQty);
                             if (qty != 0 && curCode != "")
                             {
-                                double amount = Math.Abs(double.Parse(dataFile2.Rows[i][j + 2].ToString()));
-                                dr["Price"] = Math.Abs((int)(amount / qty));
+                                double amount = double.Parse(dataFile2.Rows[i][j + 2].ToString());
+                                dr["Price"] = (int)(amount / qty);
                                 dr["Qty"] = (int)qty;
-                                if (qty < 0)
-                                    amount = amount * -1;
+                                //if (qty < 0)
+                                //    amount = amount * -1;
                                 dr["Amount"] = (int)(amount);
                                 DataRow drTemp = dr;
                                 dataTemp2.Rows.Add(drTemp);
@@ -537,11 +537,11 @@ namespace DailyReport.UControls
                             dr3["Category"] = strCategory;
                             dr3["Model"] = strModel;
                             dr3["Code"] = strCode;
-                            double amount = Math.Abs(double.Parse(dataFile3.Rows[i][j + 2].ToString()));
-                            dr3["Price"] = Math.Abs((int)(amount / qty));
+                            double amount = double.Parse(dataFile3.Rows[i][j + 2].ToString());
+                            dr3["Price"] = (int)(amount / qty);
                             dr3["Qty"] = (int)qty;
-                            if (qty < 0)
-                                amount = amount * -1;
+                            //if (qty < 0)
+                            //    amount = amount * -1;
                             dr3["Amount"] = (int)(amount);
                             DataRow drTemp = dr3;
                             dataTemp3.Rows.Add(drTemp);
@@ -621,8 +621,8 @@ namespace DailyReport.UControls
                         if (strBrand == "DISCOUNT" && curAmount != "")
                         {
 
-                            double amount = Math.Abs(double.Parse(curAmount));
-                            if (curStore != "" && amount > 0
+                            double amount = double.Parse(curAmount);
+                            if (curStore != "" && amount != 0
                                 && curBranch.ToString().Split(' ')[0] != "Total"
                                 && curBranch.ToString() != "TOTAL"
                                 && curBranch.ToString() != "CHO MUON MAU"
@@ -632,7 +632,7 @@ namespace DailyReport.UControls
                                 dr["Inventory"] = strInventory;
                                 dr["Store"] = curStore;
                                 dr["Brand"] = strCategory;
-                                dr["Discount"] = (int)(amount > 0 ? amount * -1 : amount);
+                                dr["Discount"] = (int)(amount);
 
                                 DataRow drTemp = dr;
                                 dataTempDiscount1.Rows.Add(drTemp);
@@ -709,8 +709,8 @@ namespace DailyReport.UControls
                         {
                             if (curAmount != "")
                             {
-                                double amount = Math.Abs(double.Parse(curAmount));
-                                if (curStore != "" && amount > 0
+                                double amount = double.Parse(curAmount);
+                                if (curStore != "" && amount != 0
                                     && curBranch.ToString().Split(' ')[0] != "Total"
                                     && curBranch.ToString() != "TOTAL"
                                     && curBranch.ToString() != "CHO MUON MAU"
@@ -800,8 +800,8 @@ namespace DailyReport.UControls
                             
                             if (curAmount != "" && curStore != "TOTAL")
                             {
-                                double amount = Math.Abs(double.Parse(curAmount));
-                                if (curStore != "" && amount > 0)
+                                double amount = double.Parse(curAmount);
+                                if (curStore != "" && amount != 0)
                                 {
                                     dr["ReportFor"] = "SAM";
                                     dr["Inventory"] = strInventory;
@@ -1040,7 +1040,7 @@ namespace DailyReport.UControls
                 {
                     int am = dr["Amount"].ToString() == "" ? 0 : int.Parse(dr["Amount"].ToString());
                     int ds = dr["Discount"].ToString() == "" ? 0 : int.Parse(dr["Discount"].ToString());
-                    dr["NetSales"] = am - ds;
+                    dr["NetSales"] = am + ds;
                 }
                 dataFileTotal.AcceptChanges();
                 UC_ImportFileExecuteDetail uc = new UC_ImportFileExecuteDetail(dataFileTotal);
@@ -1067,7 +1067,7 @@ namespace DailyReport.UControls
                 {
                     int am = dr["Amount"].ToString() == "" ? 0 : int.Parse(dr["Amount"].ToString());
                     int ds = dr["Discount"].ToString() == "" ? 0 : int.Parse(dr["Discount"].ToString());
-                    dr["NetSales"] = am - ds;
+                    dr["NetSales"] = am + ds;
                 }
                 dataFileTotalALL.AcceptChanges();
                 UC_ImportFileExecuteDetail_2 uc = new UC_ImportFileExecuteDetail_2(dataFileTotalALL);
