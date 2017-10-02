@@ -12,9 +12,12 @@ namespace DailyReport
 {
     public partial class frmMain : DevExpress.XtraEditors.XtraForm
     {
+        private string TitleApp = "Daily Report ";
+        private string VersionApp = "2.0.0 ";
         public frmMain()
         {
             InitializeComponent();
+            Text = TitleApp + VersionApp;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
