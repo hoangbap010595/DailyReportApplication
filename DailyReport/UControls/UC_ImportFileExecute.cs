@@ -70,10 +70,10 @@ namespace DailyReport.UControls
             dataFileTotalALL.Columns.Add("STT");
             dataFileTotalALL.Columns.Add("Store");
             dataFileTotalALL.Columns.Add("Brand");
-            dataFileTotalALL.Columns.Add("Qty", typeof(Int32));
-            dataFileTotalALL.Columns.Add("Amount", typeof(Int32));
-            dataFileTotalALL.Columns.Add("Discount", typeof(Int32));
-            dataFileTotalALL.Columns.Add("NetSales", typeof(Int32));
+            dataFileTotalALL.Columns.Add("Qty", typeof(Int64));
+            dataFileTotalALL.Columns.Add("Amount", typeof(Int64));
+            dataFileTotalALL.Columns.Add("Discount", typeof(Int64));
+            dataFileTotalALL.Columns.Add("NetSales", typeof(Int64));
 
             dataTemp1 = dataFileTotal.Copy();
             dataTemp2 = dataFileTotal.Copy();
@@ -298,11 +298,11 @@ namespace DailyReport.UControls
                             if (qty != 0 && curCode != "")
                             {
                                 double amount = double.Parse(dataFile1.Rows[i][j + 2].ToString());
-                                dr["Price"] = (int)(amount / qty);
-                                dr["Qty"] = (int)qty;
+                                dr["Price"] = (Int64)(amount / qty);
+                                dr["Qty"] = (Int64)qty;
                                 //if (qty < 0)
                                 //    amount = amount * -1;
-                                dr["Amount"] = (int)(amount);
+                                dr["Amount"] = (Int64)(amount);
                                 DataRow drTemp = dr;
                                 dataTemp1.Rows.Add(drTemp);
                                 dr = dataTemp1.NewRow();
@@ -431,11 +431,11 @@ namespace DailyReport.UControls
                             if (qty != 0 && curCode != "")
                             {
                                 double amount = double.Parse(dataFile2.Rows[i][j + 2].ToString());
-                                dr["Price"] = (int)(amount / qty);
-                                dr["Qty"] = (int)qty;
+                                dr["Price"] = (Int64)(amount / qty);
+                                dr["Qty"] = (Int64)qty;
                                 //if (qty < 0)
                                 //    amount = amount * -1;
-                                dr["Amount"] = (int)(amount);
+                                dr["Amount"] = (Int64)(amount);
                                 DataRow drTemp = dr;
                                 dataTemp2.Rows.Add(drTemp);
                                 dr = dataTemp2.NewRow();
@@ -538,11 +538,11 @@ namespace DailyReport.UControls
                             dr3["Model"] = strModel;
                             dr3["Code"] = strCode;
                             double amount = double.Parse(dataFile3.Rows[i][j + 2].ToString());
-                            dr3["Price"] = (int)(amount / qty);
-                            dr3["Qty"] = (int)qty;
+                            dr3["Price"] = (Int64)(amount / qty);
+                            dr3["Qty"] = (Int64)qty;
                             //if (qty < 0)
                             //    amount = amount * -1;
-                            dr3["Amount"] = (int)(amount);
+                            dr3["Amount"] = (Int64)(amount);
                             DataRow drTemp = dr3;
                             dataTemp3.Rows.Add(drTemp);
                             dr3 = dataTemp3.NewRow();
@@ -632,7 +632,7 @@ namespace DailyReport.UControls
                                 dr["Inventory"] = strInventory;
                                 dr["Store"] = curStore;
                                 dr["Brand"] = strCategory;
-                                dr["Discount"] = (int)(amount);
+                                dr["Discount"] = (Int64)(amount);
 
                                 DataRow drTemp = dr;
                                 dataTempDiscount1.Rows.Add(drTemp);
@@ -720,7 +720,7 @@ namespace DailyReport.UControls
                                     dr["Inventory"] = strInventory;
                                     dr["Store"] = curStore;
                                     dr["Brand"] = strCategory;
-                                    dr["Discount"] = (int)(amount);
+                                    dr["Discount"] = (Int64)(amount);
 
                                     DataRow drTemp = dr;
                                     dataTempDiscount2.Rows.Add(drTemp);
@@ -807,7 +807,7 @@ namespace DailyReport.UControls
                                     dr["Inventory"] = strInventory;
                                     dr["Store"] = curStore;
                                     dr["Brand"] = strCategory;
-                                    dr["Discount"] = (int)(amount);
+                                    dr["Discount"] = (Int64)(amount);
 
                                     DataRow drTemp = dr;
                                     dataTempDiscount3.Rows.Add(drTemp);
@@ -1038,8 +1038,8 @@ namespace DailyReport.UControls
             {
                 foreach (DataRow dr in dataFileTotal.Rows)
                 {
-                    int am = dr["Amount"].ToString() == "" ? 0 : int.Parse(dr["Amount"].ToString());
-                    int ds = dr["Discount"].ToString() == "" ? 0 : int.Parse(dr["Discount"].ToString());
+                    Int64 am = dr["Amount"].ToString() == "" ? 0 : Int64.Parse(dr["Amount"].ToString());
+                    Int64 ds = dr["Discount"].ToString() == "" ? 0 : Int64.Parse(dr["Discount"].ToString());
                     dr["NetSales"] = am + ds;
                 }
                 dataFileTotal.AcceptChanges();
@@ -1065,8 +1065,8 @@ namespace DailyReport.UControls
             {
                 foreach (DataRow dr in dataFileTotalALL.Rows)
                 {
-                    int am = dr["Amount"].ToString() == "" ? 0 : int.Parse(dr["Amount"].ToString());
-                    int ds = dr["Discount"].ToString() == "" ? 0 : int.Parse(dr["Discount"].ToString());
+                    Int64 am = dr["Amount"].ToString() == "" ? 0 : Int64.Parse(dr["Amount"].ToString());
+                    Int64 ds = dr["Discount"].ToString() == "" ? 0 : Int64.Parse(dr["Discount"].ToString());
                     dr["NetSales"] = am + ds;
                 }
                 dataFileTotalALL.AcceptChanges();
